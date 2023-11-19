@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quirkcart/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_button.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_text_field.dart';
 import 'package:quirkcart/utils/routes/routes_names.dart';
@@ -8,6 +10,7 @@ TextEditingController email = TextEditingController();
 TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<AuthCubit>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -25,11 +28,15 @@ TextEditingController password = TextEditingController();
                   alignment: Alignment.centerRight,
                   child: TextButton(onPressed:(){
                    Navigator.pushNamed(context, RouteNames.signup);
-                  }, child: Text('Already have an account?',style: TextStyle(color: Colors.black),))),
+                  }, child:const Text('Create an account',style: TextStyle(color: Colors.black),))),
               SizedBox(height: 10,),
 
-               CustomButton("Login", () {
-                 Navigator.pushReplacementNamed(context, RouteNames.bottomNavBar);
+               CustomButton("Login", ()async {
+                bool loginState= await cubit.login(email.text, password.text);
+                print('login = $loginState');
+                if(loginState){
+                   Navigator.pushReplacementNamed(context, RouteNames.splash);
+                 }
                })
             ],
           ),

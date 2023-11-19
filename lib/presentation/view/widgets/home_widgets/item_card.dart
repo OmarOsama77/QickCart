@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ItemCart extends StatelessWidget {
-  const ItemCart({Key? key}) : super(key: key);
+  String image;
+  String name;
+  num price;
+
+  ItemCart({
+
+    required this.image,required this.name,required this.price});
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 500,
       child: Container(
@@ -23,7 +30,7 @@ class ItemCart extends StatelessWidget {
                       width: 130,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/images/1.png"),
+                          image: NetworkImage(image),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -32,8 +39,8 @@ class ItemCart extends StatelessWidget {
                           child: IconButton(onPressed:(){}, icon: Icon(Icons.favorite_border))),
                     ),
                    SizedBox(height: 10,),
-                    Text("Cool Outfit",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                    Text("13\$",style: TextStyle(fontSize: 22,color: Colors.red),)
+                    Text(name,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                    Text("$price\$",style: TextStyle(fontSize: 22,color: Colors.red),)
 
                   ],
                 ),

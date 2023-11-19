@@ -37,6 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.0.1
   carousel_slider: ^4.2.1
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
+  http:
+  lottie:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -64,6 +69,7 @@ flutter:
     - assets/images/1.png
     - assets/images/5.png
     - assets/images/bags.png
+    - assets/animation/splash_screen.json
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

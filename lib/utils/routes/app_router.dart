@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quirkcart/presentation/view/screens/auth/login.dart';
 import 'package:quirkcart/presentation/view/screens/auth/signup.dart';
+import 'package:quirkcart/presentation/view/screens/auth/splash_screen.dart';
 import 'package:quirkcart/presentation/view/screens/bottom_navigation_bar/bottom_nav_bar.dart';
 import 'package:quirkcart/presentation/view/screens/cart/check_out.dart';
 import 'package:quirkcart/presentation/view/screens/cart/succes_order.dart';
@@ -19,6 +20,8 @@ class AppRouter {
        return MaterialPageRoute(builder:(context)=>CheckOut());
      case RouteNames.successOrder :
        return MaterialPageRoute(builder:(context)=>SuccesOrder());
+     case RouteNames.splash :
+       return MaterialPageRoute(builder:(context)=>SplashScreen());
      default:
        return MaterialPageRoute(builder:(context)=>Login());
    }

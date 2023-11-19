@@ -4,4 +4,5 @@ class RouteNames{
   static const bottomNavBar = "/bottomNavBar";
   static const checkOut = "/checkOut";
   static const successOrder = "/successOrder";
+  static const splash="/splash";
 }
