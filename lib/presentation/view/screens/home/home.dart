@@ -1,69 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
-import 'package:quirkcart/presentation/view/widgets/home_widgets/item_card.dart';
-import 'package:quirkcart/presentation/view/widgets/home_widgets/photo_carouse.dart';
+import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
+import 'package:quirkcart/presentation/view/widgets/home_widgets/new_items.dart';
+import 'package:quirkcart/presentation/view/widgets/home_widgets/recomended_item.dart';
 
 class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductsCubit>(context);
-    cubit.getAllPosts();
-
+    final cubit2 = BlocProvider.of<UserCubit>(context);
+    cubit.getReProducts(cubit.products, cubit2.userData!);
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 40,left: 15,right: 15),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Welcome Omar, Have a greet shopping",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                  SizedBox(height: 50,),
-                 const Text("Recomended Outfits",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                  SizedBox(height: 20,),
-                  SizedBox(
-                    height: 220,
-                    child:
-                    BlocBuilder<ProductsCubit,ProductsState>(builder: (context,state){
-                     if(state is ProductsSuccess){
-                       return   ListView.builder(
-                           shrinkWrap: true,
-                           scrollDirection: Axis.vertical,
-                           itemCount: 5,
-                           itemBuilder:(context,index){
-                             return ItemCart(  image: cubit.products[index].image_url,
-                               name: cubit.products[index].name,
-                               price: cubit.products[index].price,);
-                           });
-                     }
-                     return CircularProgressIndicator();
-                    })
-                  ),
-                SizedBox(height: 20,),
-                Text("New",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                BlocBuilder<ProductsCubit , ProductsState>(builder: (context,state){
-                  if( state is ProductsSuccess){
-                    return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
+        body: SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                Text(
+                "Welcome, ${cubit2.userData!.fName}",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                "Suggestion for you",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 29,
+              ),
+              BlocBuilder<ProductsCubit, ProductsState>(
+                  builder: (context, state) {
+                if (state is ProductsSuccess) {
+                  return SizedBox(
+                    height: 250,
+                    child: ListView.builder(
                         shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: cubit.reProducts.length,
+                        itemBuilder: (context, index) {
+                          return RecommendedItem(
+                              name: cubit.reProducts[index].name,
+                              image: cubit.reProducts[index].image_url,
+                              price: cubit.reProducts[index].price);
+                        }),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(color: Color(0xFFDB3022)),
+                );
+              }),
+              const SizedBox(
+                height: 45,
+              ),
+              const Text(
+                "New Products",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              BlocBuilder<ProductsCubit, ProductsState>(
+                  builder: (context, state) {
+                if (state is ProductsSuccess) {
+                  return SizedBox(
+                    child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: cubit.products.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder:(context,index){
-                          return ItemCart(
-                            image: cubit.products[index].image_url,
-                            name: cubit.products[index].name,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return NewItems(
                             price: cubit.products[index].price,
+                            name: cubit.products[index].name,
+                            gender: cubit.products[index].gender,
+                            imageUrl: cubit.products[index].image_url,
                           );
-                        });
-                  }
-                  return CircularProgressIndicator();
-                })
-              ],
-            ),
+                        }),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(color: Color(0xFFDB3022)),
+                );
+              })
+            ],
           ),
         ),
-      )
-    );
+      ),
+    ));
   }
 }

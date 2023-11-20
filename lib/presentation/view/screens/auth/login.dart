@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/presentation/cubits/auth_cubit/auth_cubit.dart';
+import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_button.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_text_field.dart';
 import 'package:quirkcart/utils/routes/routes_names.dart';
@@ -11,6 +13,7 @@ TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<AuthCubit>(context);
+    final cubit2 = BlocProvider.of<UserCubit>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -32,9 +35,12 @@ TextEditingController password = TextEditingController();
               SizedBox(height: 10,),
 
                CustomButton("Login", ()async {
-                bool loginState= await cubit.login(email.text, password.text);
-                print('login = $loginState');
-                if(loginState){
+                UserCredential? userCredntial= await cubit.login(email.text, password.text);
+                print('login = ${userCredntial!.user!.uid}');
+                String uId = userCredntial!.user!.uid;
+                if(uId!=null){
+                   cubit2.setUserId = uId;
+                   cubit2.setUEmail = userCredntial!.user!.email.toString();
                    Navigator.pushReplacementNamed(context, RouteNames.splash);
                  }
                })

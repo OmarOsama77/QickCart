@@ -8,6 +8,7 @@ import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/signup_u
 import 'package:quirkcart/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:quirkcart/presentation/cubits/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/presentation/view/screens/auth/login.dart';
 import 'package:quirkcart/utils/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create:(_)=>BottomNavBarCubit()),
         BlocProvider(create: (_)=>AuthCubit(LoginUseCase(UserRepositoryImpl(ApiService())),SignupUseCase(UserRepositoryImpl(ApiService())))),
-        BlocProvider(create:(_)=>ProductsCubit(ProductsRepositoryImpl(ApiService())))
+        BlocProvider(create:(_)=>ProductsCubit(ProductsRepositoryImpl(ApiService()))),
+        BlocProvider(create:(_)=>UserCubit(UserRepositoryImpl(ApiService())))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quirkcart/domain/repository/user_repositry.dart';
 
 class LoginUseCase{
@@ -6,11 +7,13 @@ class LoginUseCase{
 
   LoginUseCase(this.userRepository);
 
-  Future<void> login(String email ,String password)async{
+  Future<UserCredential> login(String email ,String password)async{
     String res = validation(email, password);
       if(res == "Success"){
-        await userRepository.signInWithEmailAndPassword(email, password);
+        UserCredential userCredential = await userRepository.signInWithEmailAndPassword(email, password);
+        return userCredential;
       }
+      throw Exception("Error in login use case");
   }
 
   String validation(String email ,String password){

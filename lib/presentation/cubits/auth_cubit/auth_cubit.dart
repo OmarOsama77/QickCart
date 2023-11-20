@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/login_use_case.dart';
 import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/signup_use_case.dart';
@@ -17,7 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
   void chooseMale(){
     male = true;
     female = false;
-    gender = "Male";
+    gender = "male";
     emit(MaleGender());
     emit(FemaleGender());
 
@@ -25,24 +26,24 @@ class AuthCubit extends Cubit<AuthState> {
   void chooseFemale(){
     male = false;
     female = true;
-    gender = "Female";
+    gender = "female";
     emit(MaleGender());
     emit(FemaleGender());
   }
 
 
 
-  Future<bool> login(String email ,String password)async{
+  Future<UserCredential?> login(String email ,String password)async{
       try{
         loading = true;
         emit(loginLoading());
-        await loginUseCase.login(email, password);
+         UserCredential userCredential =await loginUseCase.login(email, password);
         emit(loginSuccess());
         loading = false;
-        return true;
+        return userCredential;
       }catch(e){
         emit(loginFailed(e.toString()));
-        return false;
+        return null;
       }
   }
   Future<void> signUp(String email ,String pass,String fName,String sName ,String password,String confirmPass,String age,String height,String weight,Users users)async{

@@ -23,12 +23,38 @@ class UserRepositoryImpl extends UserRepository{
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async{
+  Future<UserCredential> signInWithEmailAndPassword(String email, String password) async{
     try{
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential =  await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+
+      return userCredential;
     }catch(e){
       throw e.toString();
     }
   }
+
+  @override
+  Future<List<Users>> getAllUsers() async{
+    print('in repo');
+    List<Users>users = await apiService.getAllUsers();
+     print('Dione in repooo');
+    return users;
+  }
+
+  @override
+  Users getUserData(List<Users> user, String uEmail) {
+    Users? userData;
+    for (int i=0;i<user.length;i++){
+      if(user[i].email == uEmail){
+        userData = user[i];
+        return userData;
+      }
+    }
+    throw Exception('User not found');
+  }
+
+
+
   
 }
