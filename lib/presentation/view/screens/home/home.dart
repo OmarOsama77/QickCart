@@ -46,6 +46,8 @@ class Home extends StatelessWidget {
                         itemCount: cubit.reProducts.length,
                         itemBuilder: (context, index) {
                           return RecommendedItem(
+                            gender: cubit.reProducts[index].gender,
+                            weight: cubit.reProducts[index].weight,
                               name: cubit.reProducts[index].name,
                               image: cubit.reProducts[index].image_url,
                               price: cubit.reProducts[index].price);
@@ -73,6 +75,7 @@ class Home extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return NewItems(
+                            weight: cubit.products[index].weight,
                             price: cubit.products[index].price,
                             name: cubit.products[index].name,
                             gender: cubit.products[index].gender,

@@ -23,8 +23,23 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
   List<Products> getReProducts(List<Products>products,Users user){
-    reProducts = productRepository.getReProducts(products, user);
-    print('done ${reProducts.length}');
+    reProducts.clear();
+    int c=0;
+    c=0;
+    print('usserrr ${user.weight}');
+    for (int i=0;i<products.length;i++){
+         List<String> wordS = products[i].weight.split(RegExp(r'[-\s]'));
+       if(products[i].gender == user.gender){
+        if(wordS[0]=="over"&&int.parse(user.weight)>int.parse(wordS[1])){
+          reProducts.add(products[i]);
+        }else if(wordS[0]!="over"&&int.parse(user.weight)>int.parse(wordS[0])){
+          reProducts.add(products[i]);
+        }
+       }
+       c+=1;
+       wordS.clear();
+     }
+     print('re ${reProducts.length}');
     return reProducts;
   }
 }

@@ -12,5 +12,7 @@ class Products {
       required this.image_url,
       required this.name,
       required this.price,
-      required this.weight});
+      required this.weight,
+
+      });
 }
