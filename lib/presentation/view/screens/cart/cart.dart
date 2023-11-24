@@ -20,7 +20,7 @@ class Cart extends StatelessWidget {
              ListView.builder(
                physics: const NeverScrollableScrollPhysics(),
                shrinkWrap: true,
-                 itemCount: 5,
+                 itemCount: 0,
                  itemBuilder:(context,index){
                return  CartItem();
              }),

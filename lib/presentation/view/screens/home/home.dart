@@ -21,9 +21,9 @@ class Home extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                Text(
+              Text(
                 "Welcome, ${cubit2.userData!.fName}",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style:const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 20,
@@ -46,8 +46,8 @@ class Home extends StatelessWidget {
                         itemCount: cubit.reProducts.length,
                         itemBuilder: (context, index) {
                           return RecommendedItem(
-                            gender: cubit.reProducts[index].gender,
-                            weight: cubit.reProducts[index].weight,
+                              gender: cubit.reProducts[index].gender,
+                              weight: cubit.reProducts[index].weight,
                               name: cubit.reProducts[index].name,
                               image: cubit.reProducts[index].image_url,
                               price: cubit.reProducts[index].price);
@@ -65,29 +65,25 @@ class Home extends StatelessWidget {
                 "New Products",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              BlocBuilder<ProductsCubit, ProductsState>(
-                  builder: (context, state) {
-                if (state is ProductsSuccess) {
-                  return SizedBox(
-                    child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: cubit.products.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return NewItems(
-                            weight: cubit.products[index].weight,
-                            price: cubit.products[index].price,
-                            name: cubit.products[index].name,
-                            gender: cubit.products[index].gender,
-                            imageUrl: cubit.products[index].image_url,
-                          );
-                        }),
-                  );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(color: Color(0xFFDB3022)),
-                );
-              })
+              SizedBox(
+                child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: cubit.products.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return NewItems(
+                        uId: cubit2.userData!.uId,
+                        id: cubit.products[index].id.toString(),
+                        index: index,
+
+                        weight: cubit.products[index].weight,
+                        price: cubit.products[index].price,
+                        name: cubit.products[index].name,
+                        gender: cubit.products[index].gender,
+                        imageUrl: cubit.products[index].image_url,
+                      );
+                    }),
+              )
             ],
           ),
         ),

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../cubits/products_cubit/favourite_cubit.dart';
+import '../../../cubits/use_cubti/user_cubit.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});

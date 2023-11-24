@@ -135,7 +135,7 @@ class Signup extends StatelessWidget {
              print('state = $state');
                   return ElevatedButton(
                  onPressed:(){
-                   Users user =Users(fName.text, sName.text, email.text, age.text, height.text, weight.text,cubit.gender!);
+                  Users user = Users(fName: fName.text, sName: sName.text, email: email.text, age: age.text, height: height.text, weight: weight.text, gender: cubit.gender!);
                    cubit.signUp(
                        email.text,
                        pass.text,

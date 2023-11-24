@@ -39,7 +39,8 @@ dependencies:
   carousel_slider: ^4.2.1
   firebase_core:
   firebase_auth:
-  cloud_firestore:
+  cloud_firestore: ^4.12.2
+  firebase_database: ^10.3.5
   http:
   lottie:
 dev_dependencies:

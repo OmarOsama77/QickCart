@@ -1,4 +1,5 @@
 class Users{
+  String? uId;
   String fName;
   String sName;
   String email;
@@ -6,7 +7,18 @@ class Users{
   String height;
   String weight;
   String gender;
-  Users(this.fName, this.sName, this.email, this.age, this.height, this.weight,this.gender);
+  List<String>? fav;
+  Users(
+      {
+      this.fav,
+      this.uId,
+      required this.fName,
+        required  this.sName,
+        required  this.email,
+        required  this.age,
+        required  this.height,
+        required   this.weight,
+        required   this.gender});
 
   Map<String,dynamic>toJson(){
     return {
@@ -16,7 +28,8 @@ class Users{
       "age":age,
       "height":height,
       "weight":weight,
-      "gender":gender
+      "gender":gender,
+      "fav":fav
     };
   }
 }

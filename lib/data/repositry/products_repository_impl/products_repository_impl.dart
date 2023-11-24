@@ -30,6 +30,27 @@ class ProductsRepositoryImpl extends ProductRepository{
 
 
 
+  @override
+  Future<void> addFavourite(String pId,userId)async{
+    await apiService.addFav(pId, userId);
+  }
+
+  @override
+  Future<void> removeFavourite(String pId,String uId)async{
+    await apiService.removeFav(pId, uId);
+  }
+
+  @override
+  Future<List<String>> getFav(String uId)async{
+   List<String> fav = await apiService.getFav(uId);
+   return fav;
+  }
+
+  @override
+  Future<Products> getProductById(String pId)async{
+     Products p = await apiService.getProductById(pId);
+     return p;
+  }
 
 
 

@@ -57,7 +57,7 @@ class ShowDetails extends StatelessWidget {
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("For ${gender!}",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                              Text("${weight.toString()}\$",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)
+                              Text("${weight.toString()}",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)
                             ],
                           ),
 

@@ -11,6 +11,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   ProductRepository productRepository;
   List<Products> products = [];
   List<Products> reProducts = [];
+
   Future<List<Products>> getAllPosts() async {
     try {
       emit(ProductsLoading());
@@ -42,4 +43,6 @@ class ProductsCubit extends Cubit<ProductsState> {
      print('re ${reProducts.length}');
     return reProducts;
   }
+
+
 }

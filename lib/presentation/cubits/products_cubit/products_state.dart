@@ -11,3 +11,4 @@ class ProductsLoading extends ProductsState{}
 class ProductsSuccess extends ProductsState{}
 
 class ProductsFailed extends ProductsState{}
+
