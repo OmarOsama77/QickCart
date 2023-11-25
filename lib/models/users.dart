@@ -1,4 +1,4 @@
-class Users{
+class Users {
   String? uId;
   String fName;
   String sName;
@@ -7,29 +7,29 @@ class Users{
   String height;
   String weight;
   String gender;
-  List<String>? fav;
+  Set<String>? fav;
+
   Users(
-      {
-      this.fav,
+      {this.fav,
       this.uId,
       required this.fName,
-        required  this.sName,
-        required  this.email,
-        required  this.age,
-        required  this.height,
-        required   this.weight,
-        required   this.gender});
+      required this.sName,
+      required this.email,
+      required this.age,
+      required this.height,
+      required this.weight,
+      required this.gender});
 
-  Map<String,dynamic>toJson(){
+  Map<String, dynamic> toJson() {
     return {
-      "firstName":fName,
-      "secondName":sName,
-      "email":email,
-      "age":age,
-      "height":height,
-      "weight":weight,
-      "gender":gender,
-      "fav":fav
+      "firstName": fName,
+      "secondName": sName,
+      "email": email,
+      "age": age,
+      "height": height,
+      "weight": weight,
+      "gender": gender,
+      "fav": <String>{},
     };
   }
 }

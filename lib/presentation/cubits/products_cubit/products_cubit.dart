@@ -11,6 +11,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   ProductRepository productRepository;
   List<Products> products = [];
   List<Products> reProducts = [];
+  List<Products> hProducts=[];
 
   Future<List<Products>> getAllPosts() async {
     try {
@@ -43,6 +44,20 @@ class ProductsCubit extends Cubit<ProductsState> {
      print('re ${reProducts.length}');
     return reProducts;
   }
+  List<Products> getHomeProducs(){
+    for (int i=0;i<11;i++){
+      hProducts.add(products[i]);
+    }
+    return hProducts;
+  }
 
+  // Future<Set<String>> getFav(String uId)async{
+  //   fav = await productRepository.getFav(uId);
+  //   return fav;
+  // }
+  // Future<void> addFav(String uId,String pId)async{
+  //   await productRepository.addFav(uId, pId);
+  //   emit(FavAdded());
+  // }
 
 }

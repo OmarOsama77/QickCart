@@ -68,19 +68,18 @@ class Home extends StatelessWidget {
               SizedBox(
                 child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cubit.products.length,
+                    itemCount: cubit.hProducts.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return NewItems(
                         uId: cubit2.userData!.uId,
-                        id: cubit.products[index].id.toString(),
+                        id: cubit.hProducts[index].id.toString(),
                         index: index,
-
-                        weight: cubit.products[index].weight,
-                        price: cubit.products[index].price,
-                        name: cubit.products[index].name,
-                        gender: cubit.products[index].gender,
-                        imageUrl: cubit.products[index].image_url,
+                        weight: cubit.hProducts[index].weight,
+                        price: cubit.hProducts[index].price,
+                        name: cubit.hProducts[index].name,
+                        gender: cubit.hProducts[index].gender,
+                        imageUrl: cubit.hProducts[index].image_url,
                       );
                     }),
               )

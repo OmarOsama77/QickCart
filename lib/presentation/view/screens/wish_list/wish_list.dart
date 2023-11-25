@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
@@ -10,46 +12,30 @@ class WishList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = BlocProvider.of<FavouriteCubit>(context);
-    var cubit2 = BlocProvider.of<UserCubit>(context);
+    final uCubit = BlocProvider.of<UserCubit>(context);
+    final cubit = BlocProvider.of<FavouriteCubit>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 22, left: 22, right: 22),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.only(top: 22,left: 22,right: 22),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Favourite",
-                  style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
-                ),
-                FutureBuilder(
-                    future: cubit.getAllFav(cubit2.userData!.uId!).then(
-                        (value) => cubit.favProduct(cubit.favourite)),
-                    builder: (context, snapshoot) {
-                      if (snapshoot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
+                Text("Favourite",style: TextStyle(fontSize: 42,fontWeight: FontWeight.bold),),
+                SizedBox(
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: cubit.favProducts.length,
+                      itemBuilder:(context,index){
+                        return WishListItem(
+                            price: cubit.favProducts[index].price,
+                          name: cubit.favProducts[index].name,
+                          image: cubit.favProducts[index].image_url,
                         );
-                      }
-                      return SizedBox(
-                        child: ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: cubit.fav.length,
-                             itemBuilder: (context, index) {
-                              return WishListItem(
-                                id: cubit.fav[index].id,
-                                index: index,
-                                price: cubit.fav[index].price,
-                                name:  cubit.fav[index].name,
-                                image:  cubit.fav[index].image_url,
-                              );
-                            }),
-                      );
-                    })
+                      }),
+                )
               ],
             ),
           ),

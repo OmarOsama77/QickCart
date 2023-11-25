@@ -10,7 +10,6 @@ import 'package:quirkcart/presentation/cubits/bottom_nav_bar_cubit/bottom_nav_ba
 import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
-import 'package:quirkcart/presentation/view/screens/auth/login.dart';
 import 'package:quirkcart/utils/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 

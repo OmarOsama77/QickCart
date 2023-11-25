@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/utils/routes/routes_names.dart';
@@ -12,11 +13,13 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
+    final cubit3 = BlocProvider.of<FavouriteCubit>(context);
     return Scaffold(
         body: FutureBuilder(
             future:Future.wait([
-              cubit2.getAllUsers(),
-              cubit.getAllPosts(),
+              cubit2.getAllUsers().then((value) => cubit3.getFav(cubit2.userData!.uId!)).then((value) => cubit3.getFavProducts(cubit3.fav)),
+              cubit.getAllPosts().then((value) => cubit.getHomeProducs()).then((value) =>cubit),
+
             ]),
             builder: (context, snapshoot) {
               if (snapshoot.connectionState == ConnectionState.done) {

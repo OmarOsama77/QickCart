@@ -23,14 +23,11 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Users getUser(List<Users> user){
-    print('ca;;ed ');
-      userData=userRepositoryImpl.getUserData(users,_uEmail!);
+    userData=userRepositoryImpl.getUserData(users,_uEmail!);
      return userData!;
     }
     Future<List<Users>> getAllUsers ()async{
-      print('in cubit');
       users = await userRepositoryImpl.getAllUsers();
-      print('Done in cubit');
       getUser(users);
       emit(UsersLoaded());
     return users;

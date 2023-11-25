@@ -25,6 +25,7 @@ class Cart extends StatelessWidget {
                return  CartItem();
              }),
                SizedBox(height: 15,),
+
                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                 Text("Total Price",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),

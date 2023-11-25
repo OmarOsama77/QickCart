@@ -12,7 +12,7 @@ class UserRepositoryImpl extends UserRepository{
 
   @override
   Future<void> createEmail(String email, String password,Users users) async{
-    print('Signing in with email: $email, password: $password');
+    print('Signing in with email: $email, password: $password ,users ${users.fav}');
      try{
           await _auth.createUserWithEmailAndPassword(email: email, password: password);
           await apiService.uploadUserData(users);

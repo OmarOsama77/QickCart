@@ -12,3 +12,4 @@ class ProductsSuccess extends ProductsState{}
 
 class ProductsFailed extends ProductsState{}
 
+class FavAdded extends ProductsState{}

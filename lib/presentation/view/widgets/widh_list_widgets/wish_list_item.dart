@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../cubits/products_cubit/favourite_cubit.dart';
 import '../../../cubits/use_cubti/user_cubit.dart';
 
 class WishListItem extends StatelessWidget {
-  String image;
   String name;
+  String image;
   num price;
-  int? index;
-  int id;
-  WishListItem({required this.id, required this.index, required this.image,required this.name,required this.price});
+
+  WishListItem({required this.name,required this.image,required this.price});
 
   @override
   Widget build(BuildContext context) {
-    var cubit = BlocProvider.of<FavouriteCubit>(context);
     var cubit2 = BlocProvider.of<UserCubit>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 22,bottom: 10),
@@ -46,7 +42,7 @@ class WishListItem extends StatelessWidget {
             ),
             Spacer(),
             Align(child: IconButton(onPressed:(){
-                cubit.remove(index.toString(), cubit2.userData!.uId!);
+
             }, icon: Icon(Icons.close)),alignment: Alignment.topRight,),
 
           ],
