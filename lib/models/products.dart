@@ -1,20 +1,20 @@
 class Products {
   int id;
   String gender;
-  String image_url;
+  String imageUrl;
   String name;
   num price;
   int? productId;
   String weight;
+  bool? fav;
 
   Products(
-      {
-          this.productId,
-        required this.id,
+      {this.productId,
+      required this.id,
       required this.gender,
-      required this.image_url,
+      required this.imageUrl,
       required this.name,
       required this.price,
       required this.weight,
-  });
+      this.fav});
 }

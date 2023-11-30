@@ -13,6 +13,9 @@ class Home extends StatelessWidget {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
     cubit.getReProducts(cubit.products, cubit2.userData!);
+    for (int i=0;i<cubit.hProducts.length;i++){
+      print('i = $i id ${cubit.hProducts[i].productId}   fav ${cubit.hProducts[i].fav}       name ${cubit.hProducts[i].name}');
+    }
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -49,7 +52,7 @@ class Home extends StatelessWidget {
                               gender: cubit.reProducts[index].gender,
                               weight: cubit.reProducts[index].weight,
                               name: cubit.reProducts[index].name,
-                              image: cubit.reProducts[index].image_url,
+                              image: cubit.reProducts[index].imageUrl,
                               price: cubit.reProducts[index].price);
                         }),
                   );
@@ -72,14 +75,15 @@ class Home extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return NewItems(
+                        favourite: cubit.hProducts[index].fav,
                         uId: cubit2.userData!.uId,
                         id: cubit.hProducts[index].id.toString(),
-                        index: index,
+                        index: cubit.hProducts[index].id!,
                         weight: cubit.hProducts[index].weight,
                         price: cubit.hProducts[index].price,
                         name: cubit.hProducts[index].name,
                         gender: cubit.hProducts[index].gender,
-                        imageUrl: cubit.hProducts[index].image_url,
+                        imageUrl: cubit.hProducts[index].imageUrl,
                       );
                     }),
               )

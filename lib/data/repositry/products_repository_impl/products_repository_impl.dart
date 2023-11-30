@@ -44,6 +44,11 @@ class ProductsRepositoryImpl extends ProductRepository{
     return pro;
   }
 
+  @override
+  Future<void> removeFav(String uId, String pId)async{
+    await apiService.removeFav(uId, pId);
+  }
+
 
 
 

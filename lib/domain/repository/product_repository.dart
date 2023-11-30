@@ -7,4 +7,5 @@ abstract class ProductRepository{
   Future<Set<String>> getFav(String uId);
   Future<void> addFav(String uId,String pId);
   Future<Products> getProductById(String pId);
+  Future<void> removeFav(String uId,String pId);
 }

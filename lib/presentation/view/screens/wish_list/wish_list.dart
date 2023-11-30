@@ -12,9 +12,10 @@ class WishList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final uCubit = BlocProvider.of<UserCubit>(context);
     final cubit = BlocProvider.of<FavouriteCubit>(context);
-
+for (int i=0;i<cubit.favProducts.length;i++){
+  print('i = $i id ${cubit.favProducts[i].id!}');
+    }
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -24,17 +25,22 @@ class WishList extends StatelessWidget {
               children: [
                 Text("Favourite",style: TextStyle(fontSize: 42,fontWeight: FontWeight.bold),),
                 SizedBox(
-                  child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: cubit.favProducts.length,
-                      itemBuilder:(context,index){
-                        return WishListItem(
-                            price: cubit.favProducts[index].price,
-                          name: cubit.favProducts[index].name,
-                          image: cubit.favProducts[index].image_url,
-                        );
-                      }),
+                  child:
+               BlocBuilder<FavouriteCubit,FavouriteState>(builder:(context,state){
+                 return    ListView.builder(
+                     physics: const NeverScrollableScrollPhysics(),
+                     shrinkWrap: true,
+                     itemCount: cubit.favProducts.length,
+                     itemBuilder:(context,index){
+                       return WishListItem(
+                         id: cubit.favProducts[index].id.toString(),
+                         index:index,
+                         price: cubit.favProducts[index].price,
+                         name: cubit.favProducts[index].name,
+                         image: cubit.favProducts[index].imageUrl,
+                       );
+                     });
+               })
                 )
               ],
             ),

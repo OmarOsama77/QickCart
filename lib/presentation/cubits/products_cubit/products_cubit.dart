@@ -50,14 +50,18 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
     return hProducts;
   }
+  List<Products> setFavProducts(Set<String>fav){
 
-  // Future<Set<String>> getFav(String uId)async{
-  //   fav = await productRepository.getFav(uId);
-  //   return fav;
-  // }
-  // Future<void> addFav(String uId,String pId)async{
-  //   await productRepository.addFav(uId, pId);
-  //   emit(FavAdded());
-  // }
+    for (int i=0;i<products.length;i++){
+     for  (int j=0;j<fav.length;j++){
+       if(products[i].productId.toString()==fav.elementAt(j)){
+         products[i].fav = true;
+         print('omarrr ${products[i].name}');
+       }
+     }
+    }
+    return products;
+  }
+
 
 }

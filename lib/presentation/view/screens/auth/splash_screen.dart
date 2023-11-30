@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
         body: FutureBuilder(
             future:Future.wait([
               cubit2.getAllUsers().then((value) => cubit3.getFav(cubit2.userData!.uId!)).then((value) => cubit3.getFavProducts(cubit3.fav)),
-              cubit.getAllPosts().then((value) => cubit.getHomeProducs()).then((value) =>cubit),
+              cubit.getAllPosts().then((value) => cubit.setFavProducts(cubit3.fav)).then((value) => cubit.getHomeProducs()),
 
             ]),
             builder: (context, snapshoot) {

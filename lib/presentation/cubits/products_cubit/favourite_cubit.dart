@@ -25,10 +25,16 @@ class FavouriteCubit extends Cubit<FavouriteState> {
  Future<List<Products>> getFavProducts(Set<String> fav)async{
     for(int i=0;i<fav.length;i++){
       Products p =await getProductById(fav.elementAt(i));
+      p.fav = true;
       favProducts.add(p);
     }
 
     return favProducts;
+ }
+ Future<void> removeFav(String uId,String pId)async{
+   print('pID = ${pId}');
+    await productRepository.removeFav(uId, pId);
+   emit(FavRemoved());
  }
 
 }
