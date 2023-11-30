@@ -24,6 +24,17 @@ class ProductsCubit extends Cubit<ProductsState> {
       throw e.toString();
     }
   }
+  Future<List<Products>> setFavIcon(Set<String>fav)async{
+    print('fav $fav');
+    for(int i=0;i<products.length;i++){
+      for(int j=0;j<fav.length;j++){
+        if(products[i].id.toString()==fav.elementAt(j)){
+          products[i].fav=true;
+        }
+      }
+    }
+    return products;
+  }
   List<Products> getReProducts(List<Products>products,Users user){
     reProducts.clear();
     int c=0;
@@ -50,18 +61,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
     return hProducts;
   }
-  List<Products> setFavProducts(Set<String>fav){
 
-    for (int i=0;i<products.length;i++){
-     for  (int j=0;j<fav.length;j++){
-       if(products[i].productId.toString()==fav.elementAt(j)){
-         products[i].fav = true;
-         print('omarrr ${products[i].name}');
-       }
-     }
-    }
-    return products;
-  }
 
 
 }

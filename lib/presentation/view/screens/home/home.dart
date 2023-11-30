@@ -13,8 +13,8 @@ class Home extends StatelessWidget {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
     cubit.getReProducts(cubit.products, cubit2.userData!);
-    for (int i=0;i<cubit.hProducts.length;i++){
-      print('i = $i id ${cubit.hProducts[i].productId}   fav ${cubit.hProducts[i].fav}       name ${cubit.hProducts[i].name}');
+for (int i=0;i<cubit.hProducts.length;i++){
+  print('fav ${cubit.hProducts[i].fav}');
     }
     return Scaffold(
         body: SafeArea(
@@ -75,15 +75,12 @@ class Home extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return NewItems(
-                        favourite: cubit.hProducts[index].fav,
-                        uId: cubit2.userData!.uId,
-                        id: cubit.hProducts[index].id.toString(),
-                        index: cubit.hProducts[index].id!,
-                        weight: cubit.hProducts[index].weight,
-                        price: cubit.hProducts[index].price,
+                        fav: cubit.hProducts[index].fav,
+                        id: cubit.hProducts[index].id,
+                        image:cubit.hProducts[index].imageUrl,
                         name: cubit.hProducts[index].name,
+                        price:cubit.hProducts[index].price,
                         gender: cubit.hProducts[index].gender,
-                        imageUrl: cubit.hProducts[index].imageUrl,
                       );
                     }),
               )

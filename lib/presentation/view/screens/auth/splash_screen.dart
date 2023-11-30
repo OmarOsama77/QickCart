@@ -8,7 +8,6 @@ import 'package:quirkcart/utils/routes/routes_names.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductsCubit>(context);
@@ -17,13 +16,11 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
         body: FutureBuilder(
             future:Future.wait([
-              cubit2.getAllUsers().then((value) => cubit3.getFav(cubit2.userData!.uId!)).then((value) => cubit3.getFavProducts(cubit3.fav)),
-              cubit.getAllPosts().then((value) => cubit.setFavProducts(cubit3.fav)).then((value) => cubit.getHomeProducs()),
-
+              cubit2.getAllUsers().then((value) => cubit3.getFavourite(cubit2.userData!.uId!).then((value) => cubit3.getProductById())),
+              cubit.getAllPosts().then((value) => cubit.setFavIcon(cubit3.fav)).then((value) => cubit.getHomeProducs()),
             ]),
             builder: (context, snapshoot) {
               if (snapshoot.connectionState == ConnectionState.done) {
-
                 Future.delayed(Duration.zero, () {
                   Navigator.pushReplacementNamed(
                       context, RouteNames.bottomNavBar);

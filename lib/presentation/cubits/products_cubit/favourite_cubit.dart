@@ -1,40 +1,61 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:quirkcart/data/repositry/products_repository_impl/products_repository_impl.dart';
 import 'package:quirkcart/models/products.dart';
-import '../../../domain/repository/product_repository.dart';
 
 part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
-  FavouriteCubit(this.productRepository) : super(FavouriteInitial());
-  ProductRepository productRepository;
-  Set<String> fav={};
-  List<Products>favProducts=[];
-  Future<Set<String>> getFav(String uId)async{
-    fav = await productRepository.getFav(uId);
+  FavouriteCubit(this.productsRepositoryImpl) : super(FavouriteInitial());
+  ProductsRepositoryImpl productsRepositoryImpl;
+  Set<String> fav = {};
+  List<Products> favProducts = [];
+
+  Future<Set<String>> getFavourite(String uId) async {
+    fav = await productsRepositoryImpl.getFav(uId);
+    List<String> favList = fav.toList();
+    for (int i = 0; i < favList.length; i++) {
+      int c = int.parse(favList[i]) - 1;
+      favList[i] = c.toString();
+    }
+    fav = favList.toSet();
+    print('fav = $fav');
     return fav;
   }
-  Future<void> addFav(String uId,String pId)async{
-    await productRepository.addFav(uId, pId);
+
+  Future<void> addFavourite(String uId, String pId) async {
+    await productsRepositoryImpl.addFav(uId, pId);
     emit(FavAdded());
   }
- Future<Products> getProductById(String pId)async{
-   Products p = await productRepository.getProductById(pId);
-    return p;
- }
- Future<List<Products>> getFavProducts(Set<String> fav)async{
-    for(int i=0;i<fav.length;i++){
-      Products p =await getProductById(fav.elementAt(i));
-      p.fav = true;
+
+  Future<void> removeFav(String uId, String pId,String name) async {
+    await productsRepositoryImpl.removeFav(uId, pId);
+    for (int i = 0; i < favProducts.length; i++) {
+      int c = int.parse(pId)-1;
+
+      if (favProducts[i].name == name) {
+        print('rr');
+        favProducts.removeAt(i);
+        emit(FavRemoved());
+        break;
+      }
+    }
+    emit(FavRemoved());
+  }
+
+  Future<List<Products>> getProductById() async {
+    for (int i = 0; i < fav.length; i++) {
+      print('fav ${fav.elementAt(i)}');
+      Products p =
+          await productsRepositoryImpl.getProductById(fav.elementAt(i));
+      print(' p= ${p.name}');
       favProducts.add(p);
     }
-
     return favProducts;
- }
- Future<void> removeFav(String uId,String pId)async{
-   print('pID = ${pId}');
-    await productRepository.removeFav(uId, pId);
-   emit(FavRemoved());
- }
+  }
 
+  Future<Products> getProduct(String pId) async {
+    Products p = await productsRepositoryImpl.getProductById(pId);
+    return p;
+  }
 }

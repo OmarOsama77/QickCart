@@ -27,7 +27,6 @@ class ApiService {
         for (int index = 0; index < products.length; index++) {
           var p = products[index];
           Products product = Products(
-              productId: index,
               id: p["id"],
               gender: p["gender"],
               imageUrl: p["image_url"],
@@ -124,7 +123,7 @@ class ApiService {
       Set<String> currentFavSet = await getFavSet(uId);
       currentFavSet.remove(pId);
       await userDocRef.update({'fav': currentFavSet.toList()});
-      print('doneeeee');
+
     } catch (e) {
       throw e.toString();
     }

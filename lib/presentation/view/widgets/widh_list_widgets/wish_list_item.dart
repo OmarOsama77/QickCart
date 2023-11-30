@@ -4,16 +4,15 @@ import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dar
 import '../../../cubits/use_cubti/user_cubit.dart';
 
 class WishListItem extends StatelessWidget {
-  String name;
   String image;
   num price;
-  int index;
-  String id;
-
-  WishListItem({required this.id, required this.name,required this.image,required this.price,required this.index});
+  String name;
+  int id;
+  WishListItem({required this.image,required this.price,required this.name,required this.id});
 
   @override
   Widget build(BuildContext context) {
+
     var cubit = BlocProvider.of<FavouriteCubit>(context);
     var cubit2 = BlocProvider.of<UserCubit>(context);
     return Padding(
@@ -45,11 +44,9 @@ class WishListItem extends StatelessWidget {
               ),
             ),
             Spacer(),
-            Align(child: IconButton(onPressed:(){
-              print('index = $index');
-                    cubit.favProducts.removeAt(index);
-                      cubit.removeFav(cubit2.userData!.uId!, id.toString());
-                  }, icon: Icon(Icons.close)),alignment: Alignment.topRight,),
+            Align(alignment: Alignment.topRight,child: IconButton(onPressed:(){
+                          cubit.removeFav(cubit2.userData!.uId!, (id).toString(),name);
+                  }, icon: Icon(Icons.close)),),
 
           ],
         ),

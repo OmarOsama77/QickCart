@@ -2,37 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/models/products.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
+
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 
 import '../../screens/cart/show_details.dart';
 
 class NewItems extends StatelessWidget {
-  int index;
-  String? uId;
-  String id;
-  String imageUrl;
-  String gender;
-  num price;
+  int id;
   String name;
-  String weight;
-  bool? favourite ;
+  String image;
+  num price;
+  String gender;
+  bool? fav;
 
-  NewItems({
-    super.key,
-      this.favourite,
-    required this.uId,
-    required this.id,
-    required this.index,
-    required this.name,
-    required this.imageUrl,
-    required this.gender,
-    required this.price,
-    required this.weight,
-  });
+  NewItems(
+      {
+        this.fav,
+      required this.id,
+      required this.name,
+      required this.image,
+      required this.price,
+      required this.gender});
 
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<FavouriteCubit>(context);
+    final cubit2 = BlocProvider.of<UserCubit>(context);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -41,9 +37,9 @@ class NewItems extends StatelessWidget {
             builder: (context) => ShowDetails(
               price: price,
               gender: gender,
-              weight: weight,
+              weight: 'weight',
               name: name,
-              imageUrl: imageUrl,
+              imageUrl: image,
             ),
           ),
         );
@@ -66,11 +62,12 @@ class NewItems extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
-                        imageUrl,
+                        image,
                         height: 250,
                         width: 100,
                         fit: BoxFit.cover,
-                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
                           if (loadingProgress == null) {
                             return child;
                           } else {
@@ -84,7 +81,9 @@ class NewItems extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 20,),
+              const SizedBox(
+                width: 20,
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 36, left: 10, right: 10),
@@ -93,32 +92,46 @@ class NewItems extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Text(
                         gender,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text("Price", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                          Text("${price}\$", style: const TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold)),
+                          const Text("Price",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          Text("$price\$",
+                              style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
-                      BlocBuilder<ProductsCubit, ProductsState>(builder: (context, state) {
-                        return
-                          IconButton(
-                            onPressed: () async {
-                              cubit.addFav(uId!, index.toString());
-                              Products p = Products(id: index, gender: gender, imageUrl: imageUrl, name: name, price: price, weight: weight);
-                              cubit.favProducts.add(p);
-                            },
-                            icon: Icon(favourite ?? false ? Icons.favorite : Icons.favorite_border),
-                          );
-
+                      BlocBuilder<ProductsCubit, ProductsState>(
+                          builder: (context, state) {
+                        return IconButton(
+                          onPressed: () async {
+                            cubit.addFavourite(
+                                cubit2.userData!.uId!, id!.toString());
+                            int c = id - 1;
+                            Products p = await cubit.getProduct(c.toString());
+                            cubit.favProducts.add(p);
+                            // cubit.removeFav(cubit2.userData!.uId!, id!.toString());
+                          },
+                          icon: fav==true?Icon(Icons.favorite):Icon(Icons.favorite_border)
+                        );
                       })
                     ],
                   ),

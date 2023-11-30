@@ -4,12 +4,11 @@ class Products {
   String imageUrl;
   String name;
   num price;
-  int? productId;
   String weight;
   bool? fav;
 
   Products(
-      {this.productId,
+      {
       required this.id,
       required this.gender,
       required this.imageUrl,
