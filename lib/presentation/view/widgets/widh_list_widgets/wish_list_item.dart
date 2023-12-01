@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
+import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
 import '../../../cubits/use_cubti/user_cubit.dart';
 
 class WishListItem extends StatelessWidget {
@@ -12,9 +13,9 @@ class WishListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var cubit = BlocProvider.of<FavouriteCubit>(context);
     var cubit2 = BlocProvider.of<UserCubit>(context);
+    var cubit3 = BlocProvider.of<ProductsCubit>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 22,bottom: 10),
       child: Container(
@@ -46,6 +47,7 @@ class WishListItem extends StatelessWidget {
             Spacer(),
             Align(alignment: Alignment.topRight,child: IconButton(onPressed:(){
                           cubit.removeFav(cubit2.userData!.uId!, (id).toString(),name);
+                          cubit.changeFavIcon(cubit3.hProducts, id);
                   }, icon: Icon(Icons.close)),),
 
           ],

@@ -32,7 +32,6 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     await productsRepositoryImpl.removeFav(uId, pId);
     for (int i = 0; i < favProducts.length; i++) {
       int c = int.parse(pId)-1;
-
       if (favProducts[i].name == name) {
         print('rr');
         favProducts.removeAt(i);
@@ -57,5 +56,12 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   Future<Products> getProduct(String pId) async {
     Products p = await productsRepositoryImpl.getProductById(pId);
     return p;
+  }
+  void changeFavIcon(List<Products>p,int id){
+      for (int i=0;i<p.length;i++){
+        if(p[i].id==id){
+          p[i].fav=null;
+        }
+      }
   }
 }

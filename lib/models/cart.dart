@@ -3,6 +3,6 @@ import 'package:quirkcart/models/products.dart';
 class Cart{
   String id;
   List<Products> items;
-
-  Cart(this.id, this.items);
+  num price;
+  Cart(this.id, this.items,this.price);
 }
