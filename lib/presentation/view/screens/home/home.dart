@@ -14,8 +14,8 @@ class Home extends StatelessWidget {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
     cubit.getReProducts(cubit.products, cubit2.userData!);
-for (int i=0;i<cubit.hProducts.length;i++){
-  print('fav ${cubit.hProducts[i].fav}');
+    for (int i = 0; i < cubit.hProducts.length; i++) {
+      print('fav ${cubit.hProducts[i].fav}');
     }
     return Scaffold(
         body: SafeArea(
@@ -27,7 +27,8 @@ for (int i=0;i<cubit.hProducts.length;i++){
             children: [
               Text(
                 "Welcome, ${cubit2.userData!.fName}",
-                style:const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 20,
@@ -69,27 +70,25 @@ for (int i=0;i<cubit.hProducts.length;i++){
                 "New Products",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                child:
-                BlocBuilder<FavouriteCubit,FavouriteState>(builder: (context,state){
-                  return     ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: cubit.hProducts.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return NewItems(
-                          index: index,
-                          fav: cubit.hProducts[index].fav,
-                          id: cubit.hProducts[index].id,
-                          image:cubit.hProducts[index].imageUrl,
-                          name: cubit.hProducts[index].name,
-                          price:cubit.hProducts[index].price,
-                          gender: cubit.hProducts[index].gender,
-
-                        );
-                      });
-                })
-              )
+              SizedBox(child: BlocBuilder<FavouriteCubit, FavouriteState>(
+                  builder: (context, state) {
+                return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: cubit.hProducts.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return NewItems(
+                        weight: cubit.hProducts[index].weight,
+                        index: index,
+                        fav: cubit.hProducts[index].fav,
+                        id: cubit.hProducts[index].id,
+                        image: cubit.hProducts[index].imageUrl,
+                        name: cubit.hProducts[index].name,
+                        price: cubit.hProducts[index].price,
+                        gender: cubit.hProducts[index].gender,
+                      );
+                    });
+              }))
             ],
           ),
         ),

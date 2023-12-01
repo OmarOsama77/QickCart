@@ -16,8 +16,10 @@ class NewItems extends StatelessWidget {
   String gender;
   bool? fav;
   int index;
+  String weight;
   NewItems(
       {
+        required this.weight,
         this.fav,
         required this.index,
       required this.id,
@@ -39,7 +41,7 @@ class NewItems extends StatelessWidget {
             builder: (context) => ShowDetails(
               price: price,
               gender: gender,
-              weight: 'weight',
+              weight: weight,
               name: name,
               imageUrl: image,
             ),

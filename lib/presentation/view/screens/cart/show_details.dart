@@ -49,7 +49,9 @@ class ShowDetails extends StatelessWidget {
                         children: [
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(name!,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                              Container(
+                                  width: w-90,
+                                  child: Text(name!,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)),
                               Text("${price.toString()}\$",style: TextStyle(color: Colors.red,fontSize: 22,fontWeight: FontWeight.bold),)
                             ],
                           ),

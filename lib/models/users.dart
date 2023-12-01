@@ -1,3 +1,4 @@
+import 'package:quirkcart/models/cart.dart';
 class Users {
   String? uId;
   String fName;
@@ -8,10 +9,12 @@ class Users {
   String weight;
   String gender;
   Set<String>? fav;
+ List<Cart> carts;
 
   Users(
       {this.fav,
       this.uId,
+        this.carts,
       required this.fName,
       required this.sName,
       required this.email,
@@ -30,6 +33,7 @@ class Users {
       "weight": weight,
       "gender": gender,
       "fav": <String>{},
+      "carts": []
     };
   }
 }
