@@ -15,10 +15,11 @@ class NewItems extends StatelessWidget {
   num price;
   String gender;
   bool? fav;
-
+  int index;
   NewItems(
       {
         this.fav,
+        required this.index,
       required this.id,
       required this.name,
       required this.image,
@@ -29,6 +30,7 @@ class NewItems extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<FavouriteCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
+    final cubit3 = BlocProvider.of<ProductsCubit>(context);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -119,20 +121,26 @@ class NewItems extends StatelessWidget {
                                   fontWeight: FontWeight.bold)),
                         ],
                       ),
-                      BlocBuilder<ProductsCubit, ProductsState>(
-                          builder: (context, state) {
-                        return IconButton(
-                          onPressed: () async {
-                            cubit.addFavourite(
-                                cubit2.userData!.uId!, id!.toString());
-                            int c = id - 1;
-                            Products p = await cubit.getProduct(c.toString());
-                            cubit.favProducts.add(p);
-                            // cubit.removeFav(cubit2.userData!.uId!, id!.toString());
-                          },
-                          icon: fav==true?Icon(Icons.favorite):Icon(Icons.favorite_border)
-                        );
-                      })
+                      IconButton(
+                        onPressed: () async {
+                         if(fav==null){
+                           print('innn');
+                              cubit.addFavourite(
+                               cubit2.userData!.uId!, id!.toString());
+                           int c = id - 1;
+                           Products p = await cubit.getProduct(c.toString());
+                           cubit.favProducts.add(p);
+                           cubit3.hProducts[index].fav = true;
+
+                         }else{
+                           print('else');
+                              cubit.removeFav(cubit2.userData!.uId!, id!.toString(),name);
+                           cubit3.hProducts[index].fav = null;
+                         }
+
+                        },
+                        icon: fav==true?Icon(Icons.favorite):Icon(Icons.favorite_border)
+                      )
                     ],
                   ),
                 ),

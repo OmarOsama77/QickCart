@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/presentation/view/widgets/home_widgets/new_items.dart';
@@ -69,20 +70,25 @@ for (int i=0;i<cubit.hProducts.length;i++){
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cubit.hProducts.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return NewItems(
-                        fav: cubit.hProducts[index].fav,
-                        id: cubit.hProducts[index].id,
-                        image:cubit.hProducts[index].imageUrl,
-                        name: cubit.hProducts[index].name,
-                        price:cubit.hProducts[index].price,
-                        gender: cubit.hProducts[index].gender,
-                      );
-                    }),
+                child:
+                BlocBuilder<FavouriteCubit,FavouriteState>(builder: (context,state){
+                  return     ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: cubit.hProducts.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return NewItems(
+                          index: index,
+                          fav: cubit.hProducts[index].fav,
+                          id: cubit.hProducts[index].id,
+                          image:cubit.hProducts[index].imageUrl,
+                          name: cubit.hProducts[index].name,
+                          price:cubit.hProducts[index].price,
+                          gender: cubit.hProducts[index].gender,
+
+                        );
+                      });
+                })
               )
             ],
           ),
