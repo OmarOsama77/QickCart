@@ -56,7 +56,7 @@ class CheckOut extends StatelessWidget {
             ),
             const  SizedBox(height: 110,),
             CustomButton("Submit Order", () {
-              cubit2.resetCart();
+              // cubit2.resetCart();
               Navigator.pushReplacementNamed(context, RouteNames.successOrder);
             })
           ],

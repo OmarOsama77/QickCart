@@ -142,6 +142,28 @@ class ApiService {
    }
   }
 
+  Future<Cart> getCart(String uId) async {
+    try {
+      CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+      DocumentReference userDocRef = usersCollection.doc(uId);
+      DocumentSnapshot userSnapshot = await userDocRef.get();
+      Map<String, dynamic>? userData =
+      userSnapshot.data() as Map<String, dynamic>;
+
+      Cart c = Cart(
+        id: userData["cart"]["id"],
+        items: Set<int>.from(userData["cart"]["items"] ?? []),
+        price: userData["cart"]["price"],
+        ordered: userData["cart"]["ordered"],
+      );
+
+      return c;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
 
 
 }

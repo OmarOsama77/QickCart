@@ -14,6 +14,7 @@ class CartItem extends StatelessWidget {
       padding: const EdgeInsets.only(top: 22,bottom: 20),
       child: Container(
         height: 200,
+
         child: Row(
           children: [
             Container(
@@ -30,10 +31,25 @@ class CartItem extends StatelessWidget {
                 children: [
                   SizedBox(height: 22,),
                   SizedBox(
-                      width: 180,
+                      width: 200,
                       child: Text(name,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)),
                   SizedBox(height: 22,),
-                  Text("$price\$",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("$price\$",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                      Row(
+                        children: [
+                          IconButton(onPressed:(){
+
+                          }, icon: Icon(Icons.arrow_upward)),
+                          Text('1',style: TextStyle(fontSize: 22),),
+                          IconButton(onPressed:(){
+
+                          }, icon: Icon(Icons.arrow_downward))
+                        ],
+                      )
+                    ],
+                  )
                 ],
               ),
             ),

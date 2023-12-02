@@ -11,51 +11,87 @@ class CartCubit extends Cubit<CartState> {
   CartCubit(this.productsRepositoryImpl) : super(CartInitial());
   ProductsRepositoryImpl productsRepositoryImpl;
   Cart? myCart;
-   Map<int,num>items = {};
-   List<Products> products=[];
-   Future<void> addItem(int id,num price)async{
-    if (items.containsKey(id)) {
-      print('already in');
-    } else {
-      items[id] = price;
-        products.add(await productsRepositoryImpl.getProductById(id.toString()));
-      print('added');
+  Set<int>productId={};
+  Set<num>productPrice={};
+  List<Products>products=[];
+
+  Future<void> addItem(int id,num price)async{
+    if(productId.contains(id)){
+      print('Already in');
+    }else{
+      productId.add(id);
+      productPrice.add(price);
+      products.add(await productsRepositoryImpl.getProductById(id.toString()));
+      print('Added');
     }
     print('Done');
   }
 
-  num getPrice(){
-     num price = 0;
-     items.forEach((key, value) {
-       price+=value;
-     });
-     return price;
+  num getCartPrice(){
+    num price =0;
+    for (int i=0;i<productPrice.length;i++){
+      price+=productPrice.elementAt(i);
+    }
+    return price;
   }
-  Set<int> getProductsId(){
-     Set<int> productsId = {};
-     items.forEach((key, value) {
-       productsId.add(key);
-     });
-     return productsId;
+
+  Cart getCart(){
+    myCart=Cart(
+      price: getCartPrice(),
+      id: Uuid().v4(),
+      ordered: false,
+      items: productId,
+    );
+    return myCart!;
   }
-  Cart? setCart(){
-        myCart = Cart(
-       id: Uuid().v4(),
-       items: getProductsId(),
-       price: getPrice(),
-       ordered: false,
-     );
-     return myCart;
+
+  void resetCart() {
+    productId.clear();
+    productPrice.clear();
+    products.clear();
+    myCart = null;
   }
-  Future<void> updateCart(String uId,Cart cart)async{
-     await productsRepositoryImpl.uploadCart(uId, cart);
+
+  Future<Cart> getUserCart(String uId) async {
+    myCart = await productsRepositoryImpl.getCart(uId);
+    print('oo ${myCart!.items}');
+
+    myCart!.items?.forEach((element) async {
+      products.add(await productsRepositoryImpl.getProductById(element.toString()));
+    });
+    return myCart!;
+  }
+
+  Future<void> updateCart(String uId, Cart cart) async {
+    await productsRepositoryImpl.uploadCart(uId, cart);
   }
 
 
+
+
+}
+
+
+/*
+Future<Cart> getCart(String uId) async {
+    myCart = await productsRepositoryImpl.getCart(uId);
+    print('oo ${myCart!.items}');
+
+    myCart!.items?.forEach((element) async {
+      products.add(await productsRepositoryImpl.getProductById(element.toString()));
+       items
+    });
+
+    return myCart!;
+  }
+    Future<void> updateCart(String uId, Cart cart) async {
+    await productsRepositoryImpl.uploadCart(uId, cart);
+  }
 
   void resetCart() {
     items.clear();
     products.clear();
     myCart = null;
   }
-}
+
+ */

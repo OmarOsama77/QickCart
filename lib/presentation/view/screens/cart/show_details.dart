@@ -77,7 +77,7 @@ class ShowDetails extends StatelessWidget {
                               child: ElevatedButton(
                                   onPressed:()async{
                                     cubit.addItem(id!-1,price!);
-                                   Cart? cart= cubit.setCart();
+                                   Cart? cart= cubit.getCart();
                                    await cubit.updateCart(cubit2.userData!.uId!, cart!);
                                   },
                                   style: ElevatedButton.styleFrom(
