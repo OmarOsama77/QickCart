@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_button.dart';
 import 'package:quirkcart/utils/routes/routes_names.dart';
+
+import '../../../cubits/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 
 class SuccesOrder extends StatelessWidget {
   const SuccesOrder({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<BottomNavBarCubit>(context);
+    cubit.navigation(0);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 90),

@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+
+  String image;
+  String name;
+  num price;
+
+  CartItem({required this.image,required this.name,required this.price});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 22),
+      padding: const EdgeInsets.only(top: 22,bottom: 20),
       child: Container(
-        height: 150,
+        height: 200,
         child: Row(
           children: [
             Container(
               height: 200,
               width: 100,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: NetworkImage("https://c4.wallpaperflare.com/wallpaper/476/932/966/cristiano-madrid-portugal-real-wallpaper-preview.jpg"),fit: BoxFit.contain)
+                  image: DecorationImage(image: NetworkImage(image),fit: BoxFit.contain)
               ),
             ),
             Padding(
@@ -23,11 +28,12 @@ class CartItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("H&M"),
                   SizedBox(height: 22,),
-                  Text("Shirt",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                  SizedBox(
+                      width: 180,
+                      child: Text(name,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)),
                   SizedBox(height: 22,),
-                  Text("32\$",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)
+                  Text("$price\$",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)
                 ],
               ),
             ),

@@ -1,9 +1,17 @@
-import 'package:quirkcart/models/products.dart';
 
 class Cart{
   String? id;
-  List<Products>? items;
+  Set<int>? items;
   num? price;
   bool? ordered;
-  Cart({this.id, this.items, this.price});
+  Cart({this.id, this.items, this.price,this.ordered});
+
+  Map<String,dynamic>toJson(){
+    return {
+      "id":id,
+      "items":items,
+      "price":price,
+      "ordered":ordered
+    };
+  }
 }

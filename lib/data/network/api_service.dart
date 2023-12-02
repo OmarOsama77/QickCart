@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:quirkcart/data/network/api_constats.dart';
+import 'package:quirkcart/models/cart.dart';
 import 'package:quirkcart/models/products.dart';
 import 'package:quirkcart/models/users.dart';
 import 'package:quirkcart/models/products.dart';
@@ -105,9 +106,6 @@ class ApiService {
       throw e.toString();
     }
   }
-  Future<void> addItemsToCart(String uId,List<Products> items)async{
-
-  }
  Future<Products> getProductById(String pId)async{
    final url = Uri.https(ApiConstants.baseUrl, "${ApiConstants.shop}/products/$pId.json");
    final res = await http.get(url);
@@ -131,6 +129,19 @@ class ApiService {
       throw e.toString();
     }
   }
+
+  Future<void>uploadCart(String uId,Cart cart)async{
+   try{
+     var cartData = cart.toJson();
+     CollectionReference usersCollection =
+     FirebaseFirestore.instance.collection('users');
+     DocumentReference userDocRef = usersCollection.doc(uId);
+     await userDocRef.update({'cart': cartData});
+   }catch(e){
+     throw e.toString();
+   }
+  }
+
 
 
 }

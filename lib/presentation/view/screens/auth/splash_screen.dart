@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quirkcart/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
@@ -13,6 +14,7 @@ class SplashScreen extends StatelessWidget {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
     final cubit3 = BlocProvider.of<FavouriteCubit>(context);
+    final cubit4 = BlocProvider.of<CartCubit>(context);
     return Scaffold(
         body: FutureBuilder(
             future:Future.wait([

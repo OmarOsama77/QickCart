@@ -7,6 +7,7 @@ import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/login_us
 import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/signup_use_case.dart';
 import 'package:quirkcart/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:quirkcart/presentation/cubits/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
+import 'package:quirkcart/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=>AuthCubit(LoginUseCase(UserRepositoryImpl(ApiService())),SignupUseCase(UserRepositoryImpl(ApiService())))),
         BlocProvider(create:(_)=>ProductsCubit(ProductsRepositoryImpl(ApiService()))),
         BlocProvider(create:(_)=>UserCubit(UserRepositoryImpl(ApiService()))),
-        BlocProvider(create: (_)=>FavouriteCubit(ProductsRepositoryImpl(ApiService())))
+        BlocProvider(create: (_)=>FavouriteCubit(ProductsRepositoryImpl(ApiService()))),
+        BlocProvider(create: (_)=>CartCubit(ProductsRepositoryImpl(ApiService()))),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

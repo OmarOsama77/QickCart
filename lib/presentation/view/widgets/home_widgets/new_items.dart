@@ -39,6 +39,7 @@ class NewItems extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ShowDetails(
+              id:id,
               price: price,
               gender: gender,
               weight: weight,

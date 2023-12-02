@@ -17,7 +17,7 @@ class AppRouter {
      case RouteNames.signup :
        return MaterialPageRoute(builder:(context)=>Signup());
      case RouteNames.checkOut :
-       return MaterialPageRoute(builder:(context)=>CheckOut());
+       return MaterialPageRoute(builder:(context)=>CheckOut(null));
      case RouteNames.successOrder :
        return MaterialPageRoute(builder:(context)=>SuccesOrder());
      case RouteNames.splash :
