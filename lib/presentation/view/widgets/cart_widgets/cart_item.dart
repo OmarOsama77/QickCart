@@ -15,7 +15,7 @@ class CartItem extends StatelessWidget {
               height: 200,
               width: 100,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/images/1.png"),fit: BoxFit.contain)
+                  image: DecorationImage(image: NetworkImage("https://c4.wallpaperflare.com/wallpaper/476/932/966/cristiano-madrid-portugal-real-wallpaper-preview.jpg"),fit: BoxFit.contain)
               ),
             ),
             Padding(

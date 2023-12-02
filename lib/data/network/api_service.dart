@@ -105,6 +105,9 @@ class ApiService {
       throw e.toString();
     }
   }
+  Future<void> addItemsToCart(String uId,List<Products> items)async{
+
+  }
  Future<Products> getProductById(String pId)async{
    final url = Uri.https(ApiConstants.baseUrl, "${ApiConstants.shop}/products/$pId.json");
    final res = await http.get(url);

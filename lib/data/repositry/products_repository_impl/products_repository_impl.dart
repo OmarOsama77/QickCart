@@ -49,6 +49,12 @@ class ProductsRepositoryImpl extends ProductRepository{
     await apiService.removeFav(uId, pId);
   }
 
+  @override
+  Future<void> addToCart(String uId, String pId) {
+    // TODO: implement addToCart
+    throw UnimplementedError();
+  }
+
 
 
 

@@ -8,4 +8,5 @@ abstract class ProductRepository{
   Future<void> addFav(String uId,String pId);
   Future<Products> getProductById(String pId);
   Future<void> removeFav(String uId,String pId);
+  Future<void> addToCart(String uId,String pId);
 }

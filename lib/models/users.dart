@@ -9,12 +9,14 @@ class Users {
   String weight;
   String gender;
   Set<String>? fav;
- List<Cart> carts;
+ List<Cart>? ordered;
+ Cart? cart;
 
   Users(
       {this.fav,
       this.uId,
-        this.carts,
+        this.ordered,
+        this.cart,
       required this.fName,
       required this.sName,
       required this.email,
@@ -33,7 +35,8 @@ class Users {
       "weight": weight,
       "gender": gender,
       "fav": <String>{},
-      "carts": []
+      "Ordered": [],
+      "cart" :cart,
     };
   }
 }

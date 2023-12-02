@@ -14,9 +14,7 @@ class Home extends StatelessWidget {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
     cubit.getReProducts(cubit.products, cubit2.userData!);
-    for (int i = 0; i < cubit.hProducts.length; i++) {
-      print('fav ${cubit.hProducts[i].fav}');
-    }
+  
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -43,7 +41,7 @@ class Home extends StatelessWidget {
               BlocBuilder<ProductsCubit, ProductsState>(
                   builder: (context, state) {
                 if (state is ProductsSuccess) {
-                  return SizedBox(
+                  return cubit.reProducts.length!=0? SizedBox(
                     height: 250,
                     child: ListView.builder(
                         shrinkWrap: true,
@@ -57,7 +55,14 @@ class Home extends StatelessWidget {
                               image: cubit.reProducts[index].imageUrl,
                               price: cubit.reProducts[index].price);
                         }),
-                  );
+                  ):
+                  SizedBox(
+                    height: 250,
+                    child: Center(
+                      child: Text("There is no recomended products,sorry",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),),
+                    ),
+                  )
+                  ;
                 }
                 return const Center(
                   child: CircularProgressIndicator(color: Color(0xFFDB3022)),
