@@ -65,4 +65,9 @@ class ProductsRepositoryImpl extends ProductRepository {
     await apiService.resetCart(uId);
   }
 
+  @override
+  Future<void> uploadOrderedCart(String uId, Cart cart)async{
+    await apiService.uploadOrderedCart(uId, cart);
+  }
+
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/models/cart.dart';
-import 'package:quirkcart/models/products.dart';
+import 'package:share/share.dart';
 import 'package:quirkcart/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 
@@ -29,7 +29,9 @@ class ShowDetails extends StatelessWidget {
         title: Text(name.toString(),style:const TextStyle(fontSize: 20,color: Colors.black),),
         centerTitle: true,
         actions: [
-            IconButton(onPressed:(){}, icon:const Icon(Icons.share,color: Colors.black,))
+            IconButton(onPressed:(){
+              Share.share('Check out this amazing item: $name, Price: $price\$ $imageUrl');
+            }, icon:const Icon(Icons.share,color: Colors.black,))
         ],
       ),
       body: SingleChildScrollView(

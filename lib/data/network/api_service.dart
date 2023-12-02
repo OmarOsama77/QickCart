@@ -173,6 +173,19 @@ class ApiService {
       throw e.toString();
     }
   }
+  Future<void> uploadOrderedCart(String uId, Cart cart) async {
+    CollectionReference usersCollection =
+    FirebaseFirestore.instance.collection('users');
+    DocumentReference userDocRef = usersCollection.doc(uId);
+
+    DocumentSnapshot userSnapshot = await userDocRef.get();
+    Map<String, dynamic>? userData = userSnapshot.data() as Map<String, dynamic>;
+
+    List<dynamic> orderedList = userData['Ordered'] ?? [];
+
+    orderedList.add(cart.toJson());
+    await userDocRef.update({'Ordered': orderedList});
+  }
 
 
 }

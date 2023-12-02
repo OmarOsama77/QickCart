@@ -13,4 +13,5 @@ abstract class ProductRepository{
   Future<void> uploadCart(String uId,Cart cart);
   Future<Cart> getCart(String uId);
   Future<void> resetCart(String uId);
+  Future<void> uploadOrderedCart(String uId,Cart cart);
 }
