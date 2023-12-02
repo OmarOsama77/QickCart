@@ -54,8 +54,9 @@ class CartCubit extends Cubit<CartState> {
 
   Future<Cart> getUserCart(String uId) async {
     myCart = await productsRepositoryImpl.getCart(uId);
-    print('oo ${myCart!.items}');
 
+    productId.addAll(myCart!.items!);
+    productPrice.add(myCart!.price!);
     myCart!.items?.forEach((element) async {
       products.add(await productsRepositoryImpl.getProductById(element.toString()));
     });
@@ -66,7 +67,9 @@ class CartCubit extends Cubit<CartState> {
     await productsRepositoryImpl.uploadCart(uId, cart);
   }
 
-
+  Future<void>resetCartFromDB(String uId)async{
+    await productsRepositoryImpl.resetCart(uId);
+  }
 
 
 }

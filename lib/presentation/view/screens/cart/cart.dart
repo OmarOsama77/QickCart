@@ -12,7 +12,6 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<CartCubit>(context);
-    cubit.getCart();
     return Scaffold(
       body: SafeArea(
         child: Padding(

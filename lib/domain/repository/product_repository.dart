@@ -12,4 +12,5 @@ abstract class ProductRepository{
   Future<void> removeFav(String uId,String pId);
   Future<void> uploadCart(String uId,Cart cart);
   Future<Cart> getCart(String uId);
+  Future<void> resetCart(String uId);
 }

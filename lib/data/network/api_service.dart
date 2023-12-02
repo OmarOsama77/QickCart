@@ -163,7 +163,16 @@ class ApiService {
       throw e.toString();
     }
   }
-
+  Future<void>resetCart(String uId)async{
+    try{
+      CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+      DocumentReference userDocRef = usersCollection.doc(uId);
+      await userDocRef.update({'cart': null});
+    }catch(e){
+      throw e.toString();
+    }
+  }
 
 
 }
