@@ -1,61 +1,88 @@
 import 'package:flutter/material.dart';
 
 class CartItem extends StatelessWidget {
-
   String image;
   String name;
   num price;
 
-  CartItem({required this.image,required this.name,required this.price});
+  CartItem({required this.image, required this.name, required this.price});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 22,bottom: 20),
-      child: Container(
-        height: 200,
-
-        child: Row(
+    var h = MediaQuery.of(context).size.height;
+    return
+      Padding(
+      padding: const EdgeInsets.only(top: 22),
+      child: SizedBox(
+        height: h / 5.5,
+        child: Stack(
           children: [
             Container(
-              height: 200,
-              width: 100,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: NetworkImage(image),fit: BoxFit.contain)
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15,left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                  color: Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(22)),
+              child: Stack(
                 children: [
-                  SizedBox(height: 22,),
-                  SizedBox(
-                      width: 200,
-                      child: Text(name,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)),
-                  SizedBox(height: 22,),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("$price\$",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                      Row(
-                        children: [
-                          IconButton(onPressed:(){
-
-                          }, icon: Icon(Icons.arrow_upward)),
-                          Text('1',style: TextStyle(fontSize: 22),),
-                          IconButton(onPressed:(){
-
-                          }, icon: Icon(Icons.arrow_downward))
-                        ],
+                      Container(
+                        height: h / 5.5,
+                        width: 80,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: NetworkImage(image),
+                                fit: BoxFit.cover)),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 22, left: 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                name,
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "for male",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "${price.toString()} \$",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              )
+                            ],
+                          ),
+                        ),
                       )
                     ],
-                  )
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: 130,
+                    bottom: 0,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFF2F2F2),
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.favorite_border),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Spacer(),
-            Align(child: IconButton(onPressed:(){}, icon: Icon(Icons.close)),alignment: Alignment.topRight,),
-
           ],
         ),
       ),
