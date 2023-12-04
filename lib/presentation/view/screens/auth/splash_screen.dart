@@ -9,6 +9,7 @@ import 'package:quirkcart/utils/routes/routes_names.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductsCubit>(context);
@@ -17,10 +18,15 @@ class SplashScreen extends StatelessWidget {
     final cubit4 = BlocProvider.of<CartCubit>(context);
     return Scaffold(
         body: FutureBuilder(
-            future:Future.wait([
-              cubit2.getAllUsers().then((value) => cubit4.getUserCart(cubit2.userData!.uId!)).then((value) => cubit3.getFavourite(cubit2.userData!.uId!).then((value) => cubit3.getProductById())),
-              cubit.getAllPosts().then((value) => cubit.setFavProducts(cubit3.fav)).then((value) => cubit.getHomeProducs()),
-            ]),
+            future: cubit2
+                .getAllUsers()
+                .then((value) => cubit.getAllPosts())
+                .then((value) => cubit3.getFavourite(cubit2.userData!.uId!))
+                .then((value) => cubit3.getProductById())
+                .then((value) => cubit.setFavProducts(cubit3.fav))
+                .then((value) => cubit.getHomeProducs())
+                .then((value) => cubit4.getUserCart(cubit2.userData!.uId!))
+            ,
             builder: (context, snapshoot) {
               if (snapshoot.connectionState == ConnectionState.done) {
                 Future.delayed(Duration.zero, () {
@@ -37,3 +43,7 @@ class SplashScreen extends StatelessWidget {
             }));
   }
 }
+/*
+     cubit2.getAllUsers().then((value) => cubit4.getUserCart(cubit2.userData!.uId!)).then((value) => cubit3.getFavourite(cubit2.userData!.uId!).then((value) => cubit3.getProductById())),
+              cubit.getAllPosts().then((value) => cubit.setFavProducts(cubit3.fav)).then((value) => cubit.getHomeProducs()),
+ */
