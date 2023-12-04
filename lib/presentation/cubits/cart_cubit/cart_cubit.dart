@@ -51,10 +51,9 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<Cart> getUserCart(String uId) async {
+    print('iddasd');
     myCart = await productsRepositoryImpl.getCart(uId);
-    myCart!.items?.forEach((element) async {
-      products.add(await productsRepositoryImpl.getProductById(element.toString()));
-    });
+
     return myCart!;
   }
 
