@@ -11,16 +11,14 @@ class CartCubit extends Cubit<CartState> {
   CartCubit(this.productsRepositoryImpl) : super(CartInitial());
   ProductsRepositoryImpl productsRepositoryImpl;
   Cart? myCart;
-  Set<int>productId={};
-  Set<num>productPrice={};
+  List<Map<String,num>>items=[];
   List<Products>products=[];
 
   Future<void> addItem(int id,num price)async{
-    if(productId.contains(id)){
+    if(items.any((element) =>element.containsKey(id))){
       print('Already in');
     }else{
-      productId.add(id);
-      productPrice.add(price);
+      items.add({id.toString():price});
       products.add(await productsRepositoryImpl.getProductById(id.toString()));
       print('Added');
     }
@@ -29,8 +27,10 @@ class CartCubit extends Cubit<CartState> {
 
   num getCartPrice(){
     num price =0;
-    for (int i=0;i<productPrice.length;i++){
-      price+=productPrice.elementAt(i);
+    for (int i=0;i<items.length;i++){
+       items[i].forEach((key, value) {
+         price+=value;
+       });
     }
     return price;
   }
@@ -38,25 +38,20 @@ class CartCubit extends Cubit<CartState> {
   Cart getCart(){
     myCart=Cart(
       price: getCartPrice(),
-      id: Uuid().v4(),
       ordered: false,
-      items: productId,
+      items: items,
     );
     return myCart!;
   }
 
   void resetCart() {
-    productId.clear();
-    productPrice.clear();
+    items.clear();
     products.clear();
     myCart = null;
   }
 
   Future<Cart> getUserCart(String uId) async {
     myCart = await productsRepositoryImpl.getCart(uId);
-
-    productId.addAll(myCart!.items!);
-    productPrice.add(myCart!.price!);
     myCart!.items?.forEach((element) async {
       products.add(await productsRepositoryImpl.getProductById(element.toString()));
     });

@@ -152,8 +152,7 @@ class ApiService {
       userSnapshot.data() as Map<String, dynamic>;
 
       Cart c = Cart(
-        id: userData["cart"]["id"],
-        items: Set<int>.from(userData["cart"]["items"] ?? []),
+        items: userData["cart"]["items"],
         price: userData["cart"]["price"],
         ordered: userData["cart"]["ordered"],
       );
