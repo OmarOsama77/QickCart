@@ -57,16 +57,20 @@ class CartCubit extends Cubit<CartState> {
     }
   }
   void decresseQuantaty(String pId,String uId){
-    print('pid ${pId}');
+
     for(var item in items){
       if(item["id"].toString()==pId){
-        item["Quantity"]=(item["Quantity"]!-1);
-        item["qPrice"] =item["qPrice"]!-item["price"]!;
-        print('price ${item["qPrice"]}');
-        myCart!.price= getCartPrice();
-        emit(ItemIncreese());
-        updateCart(uId, myCart!);
-        break;
+        if(item["Quantity"]==1){
+
+        }else{
+          item["Quantity"]=(item["Quantity"]!-1);
+          item["qPrice"] =item["qPrice"]!-item["price"]!;
+          print('price ${item["qPrice"]}');
+          myCart!.price= getCartPrice();
+          emit(ItemIncreese());
+          updateCart(uId, myCart!);
+          break;
+        }
       }
     }
   }

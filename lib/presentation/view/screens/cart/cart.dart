@@ -28,6 +28,7 @@ class Cart extends StatelessWidget {
                       itemCount:cubit.products.length,
                       itemBuilder: (context, index) {
                         return CartItem(
+                          quantity: cubit.items.elementAt(index)["Quantity"]!,
                           id: (cubit.products[index].id - 1).toString(),
                           image:cubit.products[index].imageUrl,
                           price:cubit.products[index].price,

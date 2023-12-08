@@ -8,8 +8,8 @@ class CartItem extends StatelessWidget {
   String name;
   num price;
   String id;
-
-  CartItem({required this.id, required this.image, required this.name, required this.price});
+  num quantity;
+  CartItem({required this.quantity,required this.id, required this.image, required this.name, required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class CartItem extends StatelessWidget {
                                       IconButton(onPressed:(){
                                         cubit.increaseQuantaty(id,cubit2.userData!.uId!);
                                       }, icon: Icon(Icons.add)),
-                                      Text('1'),
+                                      Text(quantity.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
                                       IconButton(onPressed:(){
                                         cubit.decresseQuantaty(id,cubit2.userData!.uId!);
                                       }, icon: Icon(Icons.remove))
@@ -74,7 +74,7 @@ class CartItem extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                "${price.toString()} \$",
+                                "${quantity*price} \$",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 22),
                               )
