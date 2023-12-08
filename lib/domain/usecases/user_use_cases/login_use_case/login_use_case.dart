@@ -8,6 +8,7 @@ class LoginUseCase{
   LoginUseCase(this.userRepository);
 
   Future<UserCredential> login(String email ,String password)async{
+    email = email.trim();
     String res = validation(email, password);
       if(res == "Success"){
         UserCredential userCredential = await userRepository.signInWithEmailAndPassword(email, password);
