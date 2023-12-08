@@ -27,80 +27,59 @@ class CartItem extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(22)),
-              child: Stack(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: h / 5.5,
-                        width: 80,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: NetworkImage(image),
-                                fit: BoxFit.cover)),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 22, left: 12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Container(
+                    height: h / 5.5,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            image: NetworkImage(image),
+                            fit: BoxFit.cover)),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 22, left: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            name,
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          ),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                name,
+                                "for male",
                                 style: TextStyle(
                                     fontSize: 17, fontWeight: FontWeight.bold),
                               ),
-                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              Row(
                                 children: [
-                                  Text(
-                                    "for male",
-                                    style: TextStyle(
-                                        fontSize: 17, fontWeight: FontWeight.bold),
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(onPressed:(){
-                                        cubit.increaseQuantaty(id,cubit2.userData!.uId!);
-                                      }, icon: Icon(Icons.add)),
-                                      Text(quantity.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                                      IconButton(onPressed:(){
-                                        cubit.decresseQuantaty(id,cubit2.userData!.uId!);
-                                      }, icon: Icon(Icons.remove))
-                                    ],
-                                  )
+                                  IconButton(onPressed:(){
+                                    cubit.increaseQuantaty(id,cubit2.userData!.uId!);
+                                  }, icon: Icon(Icons.add)),
+                                  Text(quantity.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                                  IconButton(onPressed:(){
+                                    cubit.decresseQuantaty(id,cubit2.userData!.uId!);
+                                  }, icon: Icon(Icons.remove))
                                 ],
-                              ),
-                              Text(
-                                "${quantity*price} \$",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 22),
                               )
                             ],
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: 130,
-                    bottom: 0,
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF2F2F2),
-                      ),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.favorite_border),
+                          Text(
+                            "${quantity*price} \$",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
+                          )
+                        ],
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
