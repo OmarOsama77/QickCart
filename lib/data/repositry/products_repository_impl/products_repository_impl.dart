@@ -57,7 +57,7 @@ class ProductsRepositoryImpl extends ProductRepository {
   @override
   Future<Cart> getCart(String uId)async{
     Cart? c =await apiService.getCart(uId);
-     print(' in get cart $c');
+     print(' in get cart ${c!.price}');
     return c!;
   }
 

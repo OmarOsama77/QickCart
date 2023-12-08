@@ -70,7 +70,7 @@ class ApiService {
         users.add(user);
       });
 
-      print('Done in API');
+
       return users;
     } catch (e) {
       throw e.toString();
@@ -150,14 +150,12 @@ class ApiService {
       DocumentSnapshot userSnapshot = await userDocRef.get();
       Map<String, dynamic>? userData =
       userSnapshot.data() as Map<String, dynamic>;
-      print('user data ${userData["cart"]["items"]}');
-      print('omar ${userData["cart"].runtimeType}');
-
       return Cart.fromJson(userData["cart"]);
     } catch (e) {
-      print('ee ${e.toString()}');
+      throw e.toString();
     }
   }
+
   Future<void>resetCart(String uId)async{
     try{
       CollectionReference usersCollection =

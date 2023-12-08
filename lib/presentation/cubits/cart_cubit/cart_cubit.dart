@@ -15,10 +15,10 @@ class CartCubit extends Cubit<CartState> {
   List<Products>products=[];
 
   Future<void> addItem(int id,num price)async{
-    if(items.any((element) =>element.containsKey(id))){
+    if(items.any((element) =>element.containsKey(id.toString()))){
       print('Already in');
     }else{
-      items.add({id.toString():price});
+      items.add({"id":id,"Quantity":1,"price":price});
       products.add(await productsRepositoryImpl.getProductById(id.toString()));
       print('Added');
     }
@@ -44,6 +44,27 @@ class CartCubit extends Cubit<CartState> {
     return myCart!;
   }
 
+  void increaseQuantaty(String pId){
+    print('pid ${pId}');
+    for(var item in items){
+      if(item["id"].toString()==pId){
+        item["Quantity"]=(item["Quantity"]!+1);
+        print('s7 ${item["Quantity"]}${item["price"]}');
+      }
+    }
+  }
+  void decresseQuantaty(String pId){
+    print('pid ${pId}');
+    for(var item in items){
+      if(item["id"].toString()==pId){
+        item["Quantity"]=(item["Quantity"]!-1);
+        print('s7 ${item["Quantity"]}');
+      }
+    }
+  }
+
+
+
   void resetCart() {
     items.clear();
     products.clear();
@@ -51,10 +72,26 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<Cart> getUserCart(String uId) async {
-    print('iddasd');
-    myCart = await productsRepositoryImpl.getCart(uId);
-
-    return myCart!;
+    try{
+      print('iun get user cart');
+      myCart = await productsRepositoryImpl.getCart(uId);
+      print('mny cart ${myCart!.items}');
+      items.addAll(myCart!.items!.map((item) {
+        return {
+          "id": item["id"] as int,
+          "Quantity": item["Quantity"] as int,
+          "price": item["price"] as num,
+        };
+      }).toList());
+      for (var item in items){
+        products.add(await productsRepositoryImpl.getProductById(item["id"].toString()));
+      }
+      print('items  ${items.length}  items in cart ');
+      emit(ItemsCart());
+      return myCart!;
+    }catch(e){
+      throw e.toString();
+    }
   }
 
   Future<void> updateCart(String uId, Cart cart) async {

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quirkcart/presentation/cubits/cart_cubit/cart_cubit.dart';
 
 class CartItem extends StatelessWidget {
   String image;
   String name;
   num price;
+  String id;
 
-  CartItem({required this.image, required this.name, required this.price});
+  CartItem({required this.id, required this.image, required this.name, required this.price});
 
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
+    var cubit = BlocProvider.of<CartCubit>(context);
     return
       Padding(
       padding: const EdgeInsets.only(top: 22),
@@ -47,10 +51,25 @@ class CartItem extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 17, fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                "for male",
-                                style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold),
+                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "for male",
+                                    style: TextStyle(
+                                        fontSize: 17, fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      IconButton(onPressed:(){
+                                        cubit.increaseQuantaty(id);
+                                      }, icon: Icon(Icons.add)),
+                                      Text('1'),
+                                      IconButton(onPressed:(){
+                                        cubit.decresseQuantaty(id);
+                                      }, icon: Icon(Icons.remove))
+                                    ],
+                                  )
+                                ],
                               ),
                               Text(
                                 "${price.toString()} \$",
