@@ -18,7 +18,7 @@ class CartCubit extends Cubit<CartState> {
     if(items.any((element) =>element.containsKey(id.toString()))){
       print('Already in');
     }else{
-      items.add({"id":id,"Quantity":1,"price":price});
+      items.add({"id":id,"Quantity":1,"price":price,"qPrice":price});
       products.add(await productsRepositoryImpl.getProductById(id.toString()));
       print('Added');
     }
@@ -27,10 +27,8 @@ class CartCubit extends Cubit<CartState> {
 
   num getCartPrice(){
     num price =0;
-    for (int i=0;i<items.length;i++){
-       items[i].forEach((key, value) {
-         price+=value;
-       });
+    for (var item in items){
+      price+=item["qPrice"]!;
     }
     return price;
   }
@@ -44,21 +42,31 @@ class CartCubit extends Cubit<CartState> {
     return myCart!;
   }
 
-  void increaseQuantaty(String pId){
+  void increaseQuantaty(String pId,String uId){
     print('pid ${pId}');
     for(var item in items){
       if(item["id"].toString()==pId){
         item["Quantity"]=(item["Quantity"]!+1);
-        print('s7 ${item["Quantity"]}${item["price"]}');
+        item["qPrice"] = item["price"]!*item["Quantity"]!;
+        print('price ${item["qPrice"]}');
+        myCart!.price= getCartPrice();
+        emit(ItemIncreese());
+        updateCart(uId, myCart!);
+        break;
       }
     }
   }
-  void decresseQuantaty(String pId){
+  void decresseQuantaty(String pId,String uId){
     print('pid ${pId}');
     for(var item in items){
       if(item["id"].toString()==pId){
         item["Quantity"]=(item["Quantity"]!-1);
-        print('s7 ${item["Quantity"]}');
+        item["qPrice"] =item["qPrice"]!-item["price"]!;
+        print('price ${item["qPrice"]}');
+        myCart!.price= getCartPrice();
+        emit(ItemIncreese());
+        updateCart(uId, myCart!);
+        break;
       }
     }
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quirkcart/presentation/cubits/cart_cubit/cart_cubit.dart';
+import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 
 class CartItem extends StatelessWidget {
   String image;
@@ -14,6 +15,7 @@ class CartItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var cubit = BlocProvider.of<CartCubit>(context);
+    var cubit2 = BlocProvider.of<UserCubit>(context);
     return
       Padding(
       padding: const EdgeInsets.only(top: 22),
@@ -61,11 +63,11 @@ class CartItem extends StatelessWidget {
                                   Row(
                                     children: [
                                       IconButton(onPressed:(){
-                                        cubit.increaseQuantaty(id);
+                                        cubit.increaseQuantaty(id,cubit2.userData!.uId!);
                                       }, icon: Icon(Icons.add)),
                                       Text('1'),
                                       IconButton(onPressed:(){
-                                        cubit.decresseQuantaty(id);
+                                        cubit.decresseQuantaty(id,cubit2.userData!.uId!);
                                       }, icon: Icon(Icons.remove))
                                     ],
                                   )
