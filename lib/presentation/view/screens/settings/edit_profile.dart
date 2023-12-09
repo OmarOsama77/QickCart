@@ -83,7 +83,9 @@ class EditProfile extends StatelessWidget {
                   }
                   cubit2.updateUserData(cubit.userData!.uId.toString(), fName.text, sName.text, address.text);
                   await cubit3.uploadUserImage(cubit2.profileImage!, cubit.userData!.email);
-                  await cubit2.updateUserImage(cubit2.profileImage!, cubit.userData!.email);
+                String userImage=  await cubit2.updateUserImage(cubit2.profileImage!, cubit.userData!.email);
+                  cubit.userData!.profileImageURL = null;
+                cubit.userData!.profileImageURL = userImage;
                 })
               ],
             ),

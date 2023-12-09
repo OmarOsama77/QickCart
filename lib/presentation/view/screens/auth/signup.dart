@@ -39,15 +39,15 @@ class Signup extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
+                        icon:const Icon(
                           Icons.arrow_back_ios_new,
                           size: 22,
                         ))),
-                SizedBox(
+                const SizedBox(
                   height: 22,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                const Padding(
+                  padding:   EdgeInsets.only(left: 10),
                   child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
@@ -186,8 +186,8 @@ class Signup extends StatelessWidget {
                    );
                    cubit.uploadUserImage(cubit.profileImage!, email.text.trim());
                  },
-                 child:
-                     Text("Register"),
+                   child:
+                      Text("Register"),
                  style: ElevatedButton.styleFrom(
                      fixedSize: Size(2000, 50),
                      primary: Color(0xFFDB3022),

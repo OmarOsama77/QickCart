@@ -4,6 +4,8 @@ import 'package:quirkcart/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/utils/routes/routes_names.dart';
 
+import '../../../cubits/settings_cubit/settings_cubit.dart';
+
 class Settings extends StatelessWidget {
   const Settings({super.key});
 
@@ -11,6 +13,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<UserCubit>(context);
     var cubit2 = BlocProvider.of<AuthCubit>(context);
+    print('omar ${cubit.userData!.profileImageURL}');
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -25,12 +28,13 @@ class Settings extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Row(
+        BlocBuilder<SettingsCubit, SettingsState>(builder:(context,state){
+          return Row(
             children: [
               CircleAvatar(
                 radius: 30,
                 backgroundImage:
-                    NetworkImage(cubit.userData!.profileImageURL.toString()),
+                NetworkImage(cubit.userData!.profileImageURL.toString()),
               ),
               const SizedBox(
                 width: 18,
@@ -50,7 +54,8 @@ class Settings extends StatelessWidget {
                 ],
               )
             ],
-          ),
+          );
+        }),
           const SizedBox(
             height: 40,
           ),
