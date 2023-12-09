@@ -13,9 +13,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
-    cubit.getReProducts(cubit.products, cubit2.userData!);
-    print('omar ${cubit.products[0].fav}');
-    print('omar2 ${cubit.hProducts[0].fav}');
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(

@@ -38,7 +38,6 @@ class ProductsCubit extends Cubit<ProductsState> {
          }
          if(wordS[0]!="over"){
            if(int.parse(wordS[0])<user.weight&&int.parse(wordS[1])>user.weight){
-             print('omar ${int.parse(wordS[0])}   ${int.parse(wordS[1])}    w ${user.weight}');
              reProducts.add(products[i]);
            }
          }
