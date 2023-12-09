@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:quirkcart/data/repositry/use_repository_impl/user_repo_impl.dart';
@@ -24,8 +25,13 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(PickImageState());
     }
   }
-  Future<void> updateUserImage(File? image,String email)async{
-    await userRepositoryImpl.updateUserImage(image!, email);
-    print('done');
+  Future<void> updateUserImage(File image,String email)async{
+    try{
+      final storageReference = FirebaseStorage.instance.ref().child('profile_images/$email');
+      final UploadTask uploadTask = storageReference.putFile(image);
+      final TaskSnapshot snapshot = await uploadTask;
+    }catch(e){
+      throw e.toString();
+    }
   }
 }

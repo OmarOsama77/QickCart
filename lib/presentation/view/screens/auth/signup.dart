@@ -170,7 +170,8 @@ class Signup extends StatelessWidget {
                    Fluttertoast.showToast(msg: "Pick image please");
                  }
 
-                  Users user = Users(address: address.text, fName: fName.text, sName: sName.text, email: email.text, age: age.text, height: int.parse(weight.text), weight:int.parse(weight.text), gender: cubit.gender!);
+
+                          Users user = Users(address: address.text, fName: fName.text, sName: sName.text, email: email.text, age: age.text, height: int.parse(weight.text), weight:int.parse(weight.text), gender: cubit.gender!);
                    cubit.signUp(
                        email.text,
                        pass.text,
@@ -206,3 +207,4 @@ class Signup extends StatelessWidget {
 }
 
 
+//File: '/data/user/0/com.example.quirkcart/cache/762b9b57-fb69-42b3-8af1-f03ab9948f06/IMG_20230812_234937_279.webp'
