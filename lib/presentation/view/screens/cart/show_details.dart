@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quirkcart/models/cart.dart';
 import 'package:share/share.dart';
 import 'package:quirkcart/presentation/cubits/cart_cubit/cart_cubit.dart';
@@ -79,25 +80,24 @@ class ShowDetails extends StatelessWidget {
                               child:
                              BlocBuilder<CartCubit,CartState>(builder: (context,state){
                                return
-                                 ElevatedButton(
+                                ElevatedButton(
                                      onPressed: () async {
-                                       if (id != null && price != null) {
+                                       if (id != null && price != null&&!cubit.inCart(id!-1)) {
                                          cubit.addItem(id! - 1, price!);
                                          Cart? cart = cubit.getCart();
                                          await cubit.updateCart(cubit2.userData!.uId!, cart!);
-                                       } else {
-
-                                         print('Error: Invalid id $id or price $price.');
+                                       }else{
+                                         Fluttertoast.showToast(msg: "Already in cart");
                                        }
                                      },
 
                                    style: ElevatedButton.styleFrom(
                                        fixedSize:const Size(2000, 50),
-                                       primary: Color(0xFFDB3022),
+                                       primary: cubit.inCart(id!-1)? Colors.grey: Color(0xFFDB3022),
                                        shape: RoundedRectangleBorder(
                                          borderRadius: BorderRadius.circular(12),
                                        )),
-                                   child: const Text("Add to cart"));
+                                   child: cubit.inCart(id!-1)? Text("Alraedy in cart!"):  Text("Add to cart"));
                              })
                             ),
                           )
