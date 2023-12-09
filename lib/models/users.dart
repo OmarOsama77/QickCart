@@ -5,8 +5,8 @@ class Users {
   String sName;
   String email;
   String age;
-  String height;
-  String weight;
+  int height;
+  int weight;
   String gender;
   String address;
   String? profileImageURL;

@@ -170,7 +170,7 @@ class Signup extends StatelessWidget {
                    Fluttertoast.showToast(msg: "Pick image please");
                  }
 
-                  Users user = Users(address: address.text, fName: fName.text, sName: sName.text, email: email.text, age: age.text, height: height.text, weight: weight.text, gender: cubit.gender!);
+                  Users user = Users(address: address.text, fName: fName.text, sName: sName.text, email: email.text, age: age.text, height: int.parse(weight.text), weight:int.parse(weight.text), gender: cubit.gender!);
                    cubit.signUp(
                        email.text,
                        pass.text,

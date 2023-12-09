@@ -28,28 +28,23 @@ class ProductsCubit extends Cubit<ProductsState> {
   bool gotProducts = false;
 
   List<Products> getReProducts(List<Products> products, Users user) {
-    if (gotProducts) {
-    } else {
-      reProducts.clear();
-      int c = 0;
-      c = 0;
-      print('usserrr ${user.weight}');
-      for (int i = 0; i < products.length; i++) {
-        List<String> wordS = products[i].weight.split(RegExp(r'[-\s]'));
-        if (products[i].gender == user.gender) {
-          if (wordS[0] == "over" &&
-              int.parse(user.weight) > int.parse(wordS[1])) {
-            reProducts.add(products[i]);
-          } else if (wordS[0] != "over" &&
-              int.parse(user.weight) > int.parse(wordS[0])) {
-            reProducts.add(products[i]);
-          }
-        }
-        c += 1;
-        wordS.clear();
-      }
-      print('re ${reProducts.length}');
+   reProducts.clear();
+
+      for (int i=0;i<products.length;i++){
+       if(products[i].gender==user.gender){
+         List<String> wordS = products[i].weight.split(RegExp(r'[-\s]'));
+         if(wordS[0]=="over"&&user.weight>90){
+           reProducts.add(products[i]);
+         }
+         if(wordS[0]!="over"){
+           if(int.parse(wordS[0])<user.weight&&int.parse(wordS[1])>user.weight){
+             print('omar ${int.parse(wordS[0])}   ${int.parse(wordS[1])}    w ${user.weight}');
+             reProducts.add(products[i]);
+           }
+         }
+       }
     }
+
     return reProducts;
   }
 
@@ -76,11 +71,13 @@ class ProductsCubit extends Cubit<ProductsState> {
       }
     }
   }
-  void removeFav(int id){
-    for (int i=0;i<products.length;i++){
-      if(products[i].id == id ){
-        products[i].fav=false;
+
+  void removeFav(int id) {
+    for (int i = 0; i < products.length; i++) {
+      if (products[i].id == id) {
+        products[i].fav = false;
       }
     }
   }
 }
+// List<String> wordS = products[i].weight.split(RegExp(r'[-\s]'));
