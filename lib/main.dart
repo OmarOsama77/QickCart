@@ -10,6 +10,7 @@ import 'package:quirkcart/presentation/cubits/bottom_nav_bar_cubit/bottom_nav_ba
 import 'package:quirkcart/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/favourite_cubit.dart';
 import 'package:quirkcart/presentation/cubits/products_cubit/products_cubit.dart';
+import 'package:quirkcart/presentation/cubits/settings_cubit/settings_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/utils/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
                 FavouriteCubit(ProductsRepositoryImpl(ApiService()))),
         BlocProvider(
             create: (_) => CartCubit(ProductsRepositoryImpl(ApiService()))),
+        BlocProvider(
+            create: (_) => SettingsCubit(UserRepositoryImpl(ApiService())))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

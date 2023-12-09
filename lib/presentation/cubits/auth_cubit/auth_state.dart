@@ -38,3 +38,6 @@ class FemaleGender extends AuthState{
 }
 
 class PickImageState extends AuthState{}
+
+
+class ChangeLoginState extends AuthState{}

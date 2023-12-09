@@ -195,5 +195,31 @@ class ApiService {
       throw e.toString();
     }
   }
+  Future<void> updateUserImage(File image,String userEmail)async{
+    try{
+      final storageReference = FirebaseStorage.instance.ref().child('profile_images/$userEmail');
+      final UploadTask uploadTask = storageReference.putFile(image);
+      final TaskSnapshot snapshot = await uploadTask;
+    }catch(e){
+      throw e.toString();
+    }
+  }
+
+  Future<void> updateUserData(String userId,String fName,String sName,String address)async{
+    try{
+      CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+      DocumentReference userDocRef = usersCollection.doc(userId);
+      DocumentSnapshot userSnapshot = await userDocRef.get();
+      Map<String, dynamic>? userData = userSnapshot.data() as Map<String, dynamic>;
+      userData['firstName'] = fName;
+      userData['secondName'] = sName;
+      userData['Address'] = address;
+
+      await userDocRef.update(userData!);
+    }catch(e){
+      throw e.toString();
+    }
+  }
 
 }

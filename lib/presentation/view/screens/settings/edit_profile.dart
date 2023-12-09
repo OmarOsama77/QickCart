@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quirkcart/presentation/cubits/settings_cubit/settings_cubit.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_button.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_text_field.dart';
 
@@ -13,6 +14,7 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<UserCubit>(context);
+    var cubit2 = BlocProvider.of<SettingsCubit>(context);
     var h = MediaQuery.of(context).size.height;
     return Scaffold(
       body:SafeArea(child:SingleChildScrollView(
@@ -24,30 +26,47 @@ class EditProfile extends StatelessWidget {
                  children: [
                    IconButton(onPressed:(){
                      Navigator.pop(context);
-                   }, icon: Icon(Icons.arrow_back_ios_new)),
-                   Expanded(child: Align(
+                   }, icon: const Icon(Icons.arrow_back_ios_new)),
+                  const Expanded(child: Align(
                        alignment: Alignment.center,
                        child: Text("Edit Profile",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),))),
                  ],
                ),
-             SizedBox(height: 60,),
+              const SizedBox(height: 60,),
               Align(
                 alignment: Alignment.center,
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage:NetworkImage(cubit.userData!.profileImageURL.toString()),
+                child:
+                BlocBuilder<SettingsCubit, SettingsState>(
+                  builder: (context, state) {
+                    return GestureDetector(
+                      onTap: () async {
+                        cubit2.pickProfileImage();
+                        if (cubit2.profileImage != null) {
+                          await cubit2.updateUserImage(cubit2.profileImage!, cubit.userData!.email);
+                          cubit.userData!.profileImageURL = cubit2.profileImage.toString();
+                        }
+                      },
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundImage: cubit2.profileImage != null
+                            ? FileImage(cubit2.profileImage!) as ImageProvider
+                            : NetworkImage(cubit.userData!.profileImageURL.toString()),
+                      ),
+                    );
+                  },
                 ),
+
               ),
 
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
               CustomTextField(fName, "Change first name"),
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
               CustomTextField(sName, "Change second name"),
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
               CustomTextField(address, "Change address"),
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
               CustomTextField(password, "Change password"),
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
               CustomButton("Save", () {
                if(fName.text!=cubit.userData!.fName){
                  cubit.userData!.fName=fName.text;
@@ -61,6 +80,7 @@ class EditProfile extends StatelessWidget {
                  print('address changed');
                  cubit.userData!.address=address.text;
                }
+               cubit2.updateUserData(cubit.userData!.uId.toString(), fName.text, sName.text, address.text);
               })
             ],
           ),

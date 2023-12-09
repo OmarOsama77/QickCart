@@ -76,5 +76,11 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void>uploadUserImage(File image, String userEmail)async{
     await  userRepositoryImpl.uploadUserImg(image, userEmail);
   }
-
+  void falseLoginState(){
+    loginIndicator=false;
+    emit(ChangeLoginState());
+  }
+  Future<void>logOut()async{
+    await  userRepositoryImpl.logOut();
+  }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:quirkcart/data/network/api_service.dart';
@@ -70,6 +71,22 @@ class UserRepositoryImpl extends UserRepository{
   Future<void> uploadUserImg(File image, String userEmail)async{
     await apiService.uploadUserImage(image, userEmail);
   }
+
+  @override
+  Future<void> logOut()async{
+      await _auth.signOut();
+  }
+
+  @override
+  Future<void> updateUserData(String userId, String fName, String sName, String address)async{
+    await apiService.updateUserData(userId, fName, sName, address);
+  }
+
+  @override
+  Future<void> updateUserImage(File image, String userEmail)async{
+    await apiService.updateUserImage(image, userEmail);
+  }
+
 
 
 

@@ -56,8 +56,10 @@ TextEditingController password = TextEditingController();
                       }
                     } catch (e) {
                       Fluttertoast.showToast(msg: "Check email and password");
+                      cubit.falseLoginState();
                     }
                   } else {
+                    cubit.falseLoginState();
                     Fluttertoast.showToast(msg: "Login failed");
                   }
                 });

@@ -9,4 +9,7 @@ abstract class UserRepository{
   Future<Users>  getUserData(List<Users> user,String uEmail);
   Future<List<Users>> getAllUsers();
   Future<void>uploadUserImg(File image, String userEmail);
+  Future<void>logOut();
+  Future<void>updateUserImage(File image,String userEmail);
+  Future<void>updateUserData(String userId,String fName,String sName,String address);
 }
