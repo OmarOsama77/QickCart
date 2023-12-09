@@ -48,6 +48,7 @@ class WishListItem extends StatelessWidget {
             Align(alignment: Alignment.topRight,child: IconButton(onPressed:(){
                           cubit.removeFav(cubit2.userData!.uId!, (id).toString(),name);
                           cubit.changeFavIcon(cubit3.hProducts, id);
+                            cubit3.removeFav(id);
                   }, icon: Icon(Icons.close)),),
 
           ],

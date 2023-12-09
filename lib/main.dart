@@ -14,7 +14,7 @@ import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/utils/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp(AppRouter()));
@@ -22,24 +22,33 @@ void main()async {
 
 class MyApp extends StatelessWidget {
   final AppRouter appRouter;
+
   MyApp(this.appRouter);
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create:(_)=>BottomNavBarCubit()),
-        BlocProvider(create: (_)=>AuthCubit(LoginUseCase(UserRepositoryImpl(ApiService())),SignupUseCase(UserRepositoryImpl(ApiService())))),
-        BlocProvider(create:(_)=>ProductsCubit(ProductsRepositoryImpl(ApiService()))),
-        BlocProvider(create:(_)=>UserCubit(UserRepositoryImpl(ApiService()))),
-        BlocProvider(create: (_)=>FavouriteCubit(ProductsRepositoryImpl(ApiService()))),
-        BlocProvider(create: (_)=>CartCubit(ProductsRepositoryImpl(ApiService()))),
+        BlocProvider(create: (_) => BottomNavBarCubit()),
+        BlocProvider(
+            create: (_) => AuthCubit(
+                LoginUseCase(UserRepositoryImpl(ApiService())),
+                SignupUseCase(UserRepositoryImpl(ApiService())),
+                UserRepositoryImpl(ApiService()))),
+        BlocProvider(
+            create: (_) => ProductsCubit(ProductsRepositoryImpl(ApiService()))),
+        BlocProvider(
+            create: (_) => UserCubit(UserRepositoryImpl(ApiService()))),
+        BlocProvider(
+            create: (_) =>
+                FavouriteCubit(ProductsRepositoryImpl(ApiService()))),
+        BlocProvider(
+            create: (_) => CartCubit(ProductsRepositoryImpl(ApiService()))),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-         onGenerateRoute: appRouter.generateRoute,
+        onGenerateRoute: appRouter.generateRoute,
       ),
     );
   }
 }
-

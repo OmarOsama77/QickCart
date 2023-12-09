@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quirkcart/data/repositry/use_repository_impl/user_repo_impl.dart';
 import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/login_use_case.dart';
 import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/signup_use_case.dart';
@@ -14,6 +16,7 @@ class Signup extends StatelessWidget {
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
   TextEditingController confirmPass = TextEditingController();
+  TextEditingController address = TextEditingController();
   TextEditingController age = TextEditingController();
   TextEditingController weight = TextEditingController();
   TextEditingController height = TextEditingController();
@@ -21,8 +24,6 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<AuthCubit>(context);
-    String selectedGender ="";
-    var items =["Male","Female"];
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -55,6 +56,23 @@ class Signup extends StatelessWidget {
                             fontSize: 40, fontWeight: FontWeight.bold),
                       )),
                 ),
+                SizedBox(height: 12,),
+                Align(alignment: Alignment.center,
+                  child:
+               BlocBuilder<AuthCubit,AuthState>(builder: (context,state){
+                 return GestureDetector(
+                   onTap: (){
+                     cubit.pickProfileImage();
+                   },
+                   child: CircleAvatar(
+                     radius: 40,
+                     backgroundImage:cubit.profileImage!=null?
+                     FileImage(cubit.profileImage!)as ImageProvider
+                         : AssetImage("assets/images/unknown.jpg"),
+                   ),
+                 );
+               }),
+                ),
                 SizedBox(
                   height: 50,
                 ),
@@ -78,6 +96,10 @@ class Signup extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
+                CustomTextField(address, "Address"),
+                SizedBox(
+                  height: 20,
+                ),
                Row(
                  children: [
                    Container(
@@ -92,7 +114,7 @@ class Signup extends StatelessWidget {
                            children: [
                              Column(
                                children: [
-                                 Text("Male"),
+                                 const  Text("Male"),
                                  IconButton(onPressed:(){
                                    cubit.chooseMale();
                                  }, icon:cubit.male?Icon(Icons.check_box):Icon(Icons.check_box_outline_blank_outlined)),
@@ -100,7 +122,7 @@ class Signup extends StatelessWidget {
                              ),
                              Column(
                                children: [
-                                 Text("FeMale"),
+                                const Text("Female"),
                                  IconButton(onPressed:(){
                                    cubit.chooseFemale();
                                  }, icon: cubit.female?Icon(Icons.check_box):Icon(Icons.check_box_outline_blank_outlined)),
@@ -132,10 +154,23 @@ class Signup extends StatelessWidget {
                   height: 50,
                 ),
            BlocBuilder<AuthCubit,AuthState>(builder:(context,state){
-             print('state = $state');
-                  return ElevatedButton(
+
+              if (state is SignupLoading) {
+                return CircularProgressIndicator(
+                  color: Color(0xFFDB3022),
+                );
+              }else{
+
+             return    ElevatedButton(
                  onPressed:(){
-                  Users user = Users(fName: fName.text, sName: sName.text, email: email.text, age: age.text, height: height.text, weight: weight.text, gender: cubit.gender!);
+                 if(cubit.gender==null){
+                   Fluttertoast.showToast(msg: "Choose a Gender please");
+                 }
+                 if(cubit.profileImage==null){
+                   Fluttertoast.showToast(msg: "Pick image please");
+                 }
+
+                  Users user = Users(address: address.text, fName: fName.text, sName: sName.text, email: email.text, age: age.text, height: height.text, weight: weight.text, gender: cubit.gender!);
                    cubit.signUp(
                        email.text,
                        pass.text,
@@ -148,16 +183,18 @@ class Signup extends StatelessWidget {
                        weight.text,
                         user
                    );
+                   cubit.uploadUserImage(cubit.profileImage!, email.text.trim());
                  },
-                 child:cubit.loading  ?
-                     CircularProgressIndicator(color: Color(0xFFDB3022) ,)
-                     :Text("Register"),
+                 child:
+                     Text("Register"),
                  style: ElevatedButton.styleFrom(
                      fixedSize: Size(2000, 50),
                      primary: Color(0xFFDB3022),
                      shape: RoundedRectangleBorder(
                        borderRadius: BorderRadius.circular(12),
                      )));
+              }
+
            })
               ],
             ),

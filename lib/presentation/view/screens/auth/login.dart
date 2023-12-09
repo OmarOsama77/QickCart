@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quirkcart/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:quirkcart/presentation/cubits/use_cubti/user_cubit.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_button.dart';
@@ -35,16 +36,33 @@ TextEditingController password = TextEditingController();
                     }, child:const Text('Create an account',style: TextStyle(color: Colors.black),))),
                 SizedBox(height: 10,),
 
-                 CustomButton("Login", ()async {
-                  UserCredential? userCredntial= await cubit.login(email.text, password.text);
-                  print('login = ${userCredntial!.user!.uid}');
-                  String uId = userCredntial!.user!.uid;
-                  if(uId!=null){
-                     cubit2.setUserId = uId;
-                     cubit2.setUEmail = userCredntial!.user!.email.toString();
-                     Navigator.pushReplacementNamed(context, RouteNames.splash);
-                   }
-                 })
+              BlocBuilder<AuthCubit,AuthState>(builder:(context,state){
+                return  cubit.loginIndicator
+                    ? CircularProgressIndicator(
+
+                  color: Color(0xFFDB3022),
+                )
+                    :CustomButton("Login", () async {
+                  UserCredential? userCredential = await cubit.login(email.text, password.text);
+
+                  if (userCredential != null && userCredential.user != null) {
+                    String uId = userCredential.user!.uid;
+
+                    try {
+                      if (uId != null) {
+                        cubit2.setUserId = uId;
+                        cubit2.setUEmail = userCredential.user!.email.toString();
+                        Navigator.pushReplacementNamed(context, RouteNames.splash);
+                      }
+                    } catch (e) {
+                      Fluttertoast.showToast(msg: "Check email and password");
+                    }
+                  } else {
+                    Fluttertoast.showToast(msg: "Login failed");
+                  }
+                });
+              })
+
               ],
             ),
           ),

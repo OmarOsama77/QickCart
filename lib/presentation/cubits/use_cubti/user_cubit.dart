@@ -22,8 +22,8 @@ class UserCubit extends Cubit<UserState> {
     _uEmail = value;
   }
 
-  Users getUser(List<Users> user){
-    userData=userRepositoryImpl.getUserData(users,_uEmail!);
+  Future<Users> getUser(List<Users> user)async{
+    userData=await userRepositoryImpl.getUserData(users,_uEmail!);
      return userData!;
     }
     Future<List<Users>> getAllUsers ()async{

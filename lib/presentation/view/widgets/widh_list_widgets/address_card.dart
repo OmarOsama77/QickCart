@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AddressCard extends StatelessWidget {
   String name;
-
-  AddressCard(this.name);
+  String address;
+  AddressCard(this.name,this.address);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,9 @@ class AddressCard extends StatelessWidget {
         padding: const EdgeInsets.only(left: 22,top: 22),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(name,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+            Text(name,style:const TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
             SizedBox(height: 11,),
-            Text("12 kahiry staret kobri elkoba",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)
+            Text(address,style:const TextStyle(fontSize: 22,fontWeight: FontWeight.bold),)
           ],
         ),
       ),

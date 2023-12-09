@@ -32,7 +32,7 @@ class CheckOut extends StatelessWidget {
           children: [
             const Text("Shipping address",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
             const  SizedBox(height: 50,),
-            AddressCard("${cubit.userData!.fName} ${cubit.userData!.sName}"),
+            AddressCard("${cubit.userData!.fName} ${cubit.userData!.sName}",cubit.userData!.address),
            const SizedBox(height: 40,),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -33,7 +33,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     for (int i = 0; i < favProducts.length; i++) {
       int c = int.parse(pId)-1;
       if (favProducts[i].name == name) {
-        print('rr');
+
         favProducts.removeAt(i);
         emit(FavRemoved());
         break;

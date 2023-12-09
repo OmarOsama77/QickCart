@@ -36,3 +36,5 @@ class MaleGender extends AuthState{
 class FemaleGender extends AuthState{
 
 }
+
+class PickImageState extends AuthState{}

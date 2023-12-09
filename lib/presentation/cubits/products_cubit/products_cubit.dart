@@ -11,7 +11,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   ProductRepository productRepository;
   List<Products> products = [];
   List<Products> reProducts = [];
-  List<Products> hProducts=[];
+  List<Products> hProducts = [];
 
   Future<List<Products>> getAllPosts() async {
     try {
@@ -25,43 +25,62 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
-  List<Products> getReProducts(List<Products>products,Users user){
-    reProducts.clear();
-    int c=0;
-    c=0;
-    print('usserrr ${user.weight}');
-    for (int i=0;i<products.length;i++){
-         List<String> wordS = products[i].weight.split(RegExp(r'[-\s]'));
-       if(products[i].gender == user.gender){
-        if(wordS[0]=="over"&&int.parse(user.weight)>int.parse(wordS[1])){
-          reProducts.add(products[i]);
-        }else if(wordS[0]!="over"&&int.parse(user.weight)>int.parse(wordS[0])){
-          reProducts.add(products[i]);
+  bool gotProducts = false;
+
+  List<Products> getReProducts(List<Products> products, Users user) {
+    if (gotProducts) {
+    } else {
+      reProducts.clear();
+      int c = 0;
+      c = 0;
+      print('usserrr ${user.weight}');
+      for (int i = 0; i < products.length; i++) {
+        List<String> wordS = products[i].weight.split(RegExp(r'[-\s]'));
+        if (products[i].gender == user.gender) {
+          if (wordS[0] == "over" &&
+              int.parse(user.weight) > int.parse(wordS[1])) {
+            reProducts.add(products[i]);
+          } else if (wordS[0] != "over" &&
+              int.parse(user.weight) > int.parse(wordS[0])) {
+            reProducts.add(products[i]);
+          }
         }
-       }
-       c+=1;
-       wordS.clear();
-     }
-     print('re ${reProducts.length}');
+        c += 1;
+        wordS.clear();
+      }
+      print('re ${reProducts.length}');
+    }
     return reProducts;
   }
-  List<Products> getHomeProducs(){
-    for (int i=0;i<11;i++){
+
+  List<Products> getHomeProducs() {
+    for (int i = 0; i < 11; i++) {
       hProducts.add(products[i]);
     }
     return hProducts;
   }
-  Future<void> setFavProducts(Set<String>fav)async{
-    for (int i=0;i<products.length;i++){
-      for (int j=0;j<fav.length;j++){
-         int c = products[i].id -1 ;
-         if(c.toString() == fav.elementAt(j)){
-           products[i].fav = true;
-           break;
+
+  Future<void> setFavProducts(Set<String> fav) async {
+    for (int i = 0; i < products.length; i++) {
+      for (int j = 0; j < fav.length; j++) {
+        int c = products[i].id - 1;
+        if (c.toString() == fav.elementAt(j)) {
+          products[i].fav = true;
+
+          break;
         }
+      }
+
+      if (products[i].fav == null) {
+        products[i].fav = false;
       }
     }
   }
-
-
+  void removeFav(int id){
+    for (int i=0;i<products.length;i++){
+      if(products[i].id == id ){
+        products[i].fav=false;
+      }
+    }
+  }
 }

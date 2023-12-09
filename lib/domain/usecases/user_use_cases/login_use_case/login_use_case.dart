@@ -1,4 +1,4 @@
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quirkcart/domain/repository/user_repositry.dart';
 
@@ -19,9 +19,11 @@ class LoginUseCase{
 
   String validation(String email ,String password){
     if(email.isEmpty || password.isEmpty){
+      Fluttertoast.showToast(msg: "Fields can't be empty");
       return "Fields can't be empty";
     }
     if(password.length<5){
+      Fluttertoast.showToast(msg: "Password mus be bigger than 5");
       return "Password mus be bigger than 5";
     }
     return "Success";

@@ -45,6 +45,9 @@ dependencies:
   lottie:
   uuid: ^3.0.4
   share: ^2.0.4
+  image_picker:
+  firebase_storage:
+  fluttertoast: ^8.2.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,6 +74,7 @@ flutter:
   assets:
     - assets/images/bags.png
     - assets/animation/splash_screen.json
+    - assets/images/unknown.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

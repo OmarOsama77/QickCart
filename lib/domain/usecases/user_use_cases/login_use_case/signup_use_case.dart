@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quirkcart/domain/repository/user_repositry.dart';
 import 'package:quirkcart/models/users.dart';
 
@@ -18,12 +19,15 @@ Future<void> signUp({required Users users, required String email,required String
 
   String validation(String fName , String sName , String emailId,String password,String confirmPass,String age,String height , String weight){
     if(fName.isEmpty||sName.isEmpty||emailId.isEmpty||password.isEmpty||confirmPass.isEmpty||age.isEmpty||height.isEmpty||weight.isEmpty){
+      Fluttertoast.showToast(msg: "Please Fill all the fields");
       return "Please Fill all the fields";
     }
     if(password.length<5){
+      Fluttertoast.showToast(msg: "Password must be bigger than 5");
       return "Password must be bigger than 5";
     }
     if(confirmPass!=password){
+      Fluttertoast.showToast(msg: "Passwords are not equal");
       return "Passwords are not equal";
     }
     return "Success";

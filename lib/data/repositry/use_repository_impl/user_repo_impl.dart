@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:quirkcart/data/network/api_service.dart';
 import 'package:quirkcart/domain/repository/user_repositry.dart';
 import 'package:quirkcart/models/users.dart';
@@ -43,15 +46,29 @@ class UserRepositoryImpl extends UserRepository{
   }
 
   @override
-  Users getUserData(List<Users> user, String uEmail) {
-    Users? userData;
-    for (int i=0;i<user.length;i++){
-      if(user[i].email == uEmail){
-        userData = user[i];
-        return userData;
+  Future<Users> getUserData(List<Users> user, String uEmail)async{
+      Users? userData;
+    try{
+      print('email $uEmail');
+      Reference storageRef = FirebaseStorage.instance.ref().child("profile_images/$uEmail");
+      String imageURL = await storageRef.getDownloadURL();
+
+      for (int i=0;i<user.length;i++){
+        if(user[i].email == uEmail){
+          userData = user[i];
+          userData.profileImageURL = imageURL;
+          return userData;
+        }
       }
+    }catch(E){
+      throw E.toString();
     }
-    throw Exception('User not found');
+    return userData!;
+  }
+
+  @override
+  Future<void> uploadUserImg(File image, String userEmail)async{
+    await apiService.uploadUserImage(image, userEmail);
   }
 
 

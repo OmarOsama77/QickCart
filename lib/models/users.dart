@@ -8,6 +8,8 @@ class Users {
   String height;
   String weight;
   String gender;
+  String address;
+  String? profileImageURL;
   Set<String>? fav;
  List<Cart>? ordered;
  Cart? cart;
@@ -15,6 +17,7 @@ class Users {
   Users(
       {this.fav,
       this.uId,
+        this.profileImageURL,
         this.ordered,
         this.cart,
       required this.fName,
@@ -23,6 +26,7 @@ class Users {
       required this.age,
       required this.height,
       required this.weight,
+      required this.address,
       required this.gender});
 
   Map<String, dynamic> toJson() {
@@ -31,11 +35,13 @@ class Users {
       "secondName": sName,
       "email": email,
       "age": age,
+      "Address":address,
       "height": height,
       "weight": weight,
       "gender": gender,
       "fav": <String>{},
       "Ordered": [],
+      "profileImageURL": profileImageURL,
       "cart" :cart,
     };
   }

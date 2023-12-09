@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:quirkcart/data/network/api_constats.dart';
 import 'package:quirkcart/models/cart.dart';
@@ -62,6 +65,7 @@ class ApiService {
             fName: userData["firstName"],
             sName: userData["secondName"],
             email: userData["email"],
+            address: userData["Address"],
             age: userData["age"],
             height: userData["height"],
             weight: userData["weight"],
@@ -180,5 +184,16 @@ class ApiService {
     await userDocRef.update({'Ordered': orderedList});
   }
 
+  Future<void>uploadUserImage(File image, String userEmail)async{
+    try{
+      final storageReference = FirebaseStorage.instance.ref().child('profile_images/$userEmail');
+      final UploadTask uploadTask = storageReference.putFile(image);
+      final TaskSnapshot snapshot = await uploadTask;
+
+
+    }catch(e){
+      throw e.toString();
+    }
+  }
 
 }

@@ -14,7 +14,8 @@ class Home extends StatelessWidget {
     final cubit = BlocProvider.of<ProductsCubit>(context);
     final cubit2 = BlocProvider.of<UserCubit>(context);
     cubit.getReProducts(cubit.products, cubit2.userData!);
-  
+    print('omar ${cubit.products[0].fav}');
+    print('omar2 ${cubit.hProducts[0].fav}');
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -23,10 +24,18 @@ class Home extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Welcome, ${cubit2.userData!.fName}",
-                style:
-                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Welcome, ${cubit2.userData!.fName}",
+                    style:
+                        const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  CircleAvatar(
+                    radius: 22,
+                    backgroundImage: NetworkImage(cubit2.userData!.profileImageURL.toString()),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 20,
