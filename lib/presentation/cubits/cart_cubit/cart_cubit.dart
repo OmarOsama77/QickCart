@@ -15,7 +15,8 @@ class CartCubit extends Cubit<CartState> {
   List<Products>products=[];
 
   Future<void> addItem(int id,num price)async{
-    if(items.any((element) =>element.containsKey(id.toString()))){
+    print('id $id');
+    if (items.any((element) => element["id"] == id)) {
       print('Already in');
     }else{
       items.add({"id":id,"Quantity":1,"price":price,"qPrice":price});

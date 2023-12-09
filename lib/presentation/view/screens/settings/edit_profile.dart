@@ -17,11 +17,20 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
       body:SafeArea(child:SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 90,left: 22,right: 22,bottom: 90),
+          padding: const EdgeInsets.only(top: 30,left: 22,right: 22,bottom: 90),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Text("Edit Profile",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-             SizedBox(height: 20,),
+               Row(
+                 children: [
+                   IconButton(onPressed:(){
+                     Navigator.pop(context);
+                   }, icon: Icon(Icons.arrow_back_ios_new)),
+                   Expanded(child: Align(
+                       alignment: Alignment.center,
+                       child: Text("Edit Profile",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),))),
+                 ],
+               ),
+             SizedBox(height: 60,),
               Align(
                 alignment: Alignment.center,
                 child: CircleAvatar(
@@ -40,9 +49,18 @@ class EditProfile extends StatelessWidget {
               CustomTextField(password, "Change password"),
               SizedBox(height: 40,),
               CustomButton("Save", () {
-                cubit.userData!.fName = fName.text;
-                cubit.userData!.sName = sName.text;
-                cubit.userData!.address = address.text;
+               if(fName.text!=cubit.userData!.fName){
+                 cubit.userData!.fName=fName.text;
+                 print('fname changed');
+              }
+               if(sName.text!=cubit.userData!.sName){
+                 cubit.userData!.sName=sName.text;
+                 print('sname changed');
+               }
+               if(address.text!=cubit.userData!.address){
+                 print('address changed');
+                 cubit.userData!.address=address.text;
+               }
               })
             ],
           ),
