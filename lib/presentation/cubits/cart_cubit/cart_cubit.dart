@@ -26,13 +26,16 @@ class CartCubit extends Cubit<CartState> {
     print('Done');
   }
 
-  num getCartPrice(){
-    num price =0;
-    for (var item in items){
-      price+=item["qPrice"]!;
+  num getCartPrice() {
+    num price = 0;
+    if (items != null) {
+      for (var item in items) {
+        price += item["qPrice"] ?? 0;
+      }
     }
     return price;
   }
+
 
   Cart getCart(){
     myCart=Cart(
@@ -118,7 +121,15 @@ class CartCubit extends Cubit<CartState> {
     await productsRepositoryImpl.uploadOrderedCart(uId, myCart!);
   }
 
-
+  bool inCart(int id){
+    if(items.any((element) => element["id"] == id)){
+      emit(InCartState());
+      return true;
+    }else{
+      emit(InCartState());
+      return false;
+    }
+  }
 }
 
 

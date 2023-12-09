@@ -5,10 +5,11 @@ class RecommendedItem extends StatelessWidget {
   String gender;
   String name;
   String image;
+  int id;
   num price;
   String weight;
 
-  RecommendedItem({required this.name, required this.image, required this.price, required this.weight, required this.gender});
+  RecommendedItem({required this.id, required this.name, required this.image, required this.price, required this.weight, required this.gender});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class RecommendedItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ShowDetails(
+              id: id,
               price: price,
               gender: gender,
               weight: weight,

@@ -55,6 +55,7 @@ class Home extends StatelessWidget {
                         itemCount: cubit.reProducts.length,
                         itemBuilder: (context, index) {
                           return RecommendedItem(
+                            id: cubit.reProducts[index].id,
                               gender: cubit.reProducts[index].gender,
                               weight: cubit.reProducts[index].weight,
                               name: cubit.reProducts[index].name,

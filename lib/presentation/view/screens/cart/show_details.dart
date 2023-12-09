@@ -76,19 +76,29 @@ class ShowDetails extends StatelessWidget {
                           Expanded(
                             child: Align(
                               alignment: Alignment.bottomCenter,
-                              child: ElevatedButton(
-                                  onPressed:()async{
-                                    cubit.addItem(id!-1,price!);
-                                   Cart? cart= cubit.getCart();
-                                   await cubit.updateCart(cubit2.userData!.uId!, cart!);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      fixedSize:const Size(2000, 50),
-                                      primary:const Color(0xFFDB3022),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                      )),
-                                  child: const Text("Add to cart")),
+                              child:
+                             BlocBuilder<CartCubit,CartState>(builder: (context,state){
+                               return
+                                 ElevatedButton(
+                                     onPressed: () async {
+                                       if (id != null && price != null) {
+                                         cubit.addItem(id! - 1, price!);
+                                         Cart? cart = cubit.getCart();
+                                         await cubit.updateCart(cubit2.userData!.uId!, cart!);
+                                       } else {
+
+                                         print('Error: Invalid id $id or price $price.');
+                                       }
+                                     },
+
+                                   style: ElevatedButton.styleFrom(
+                                       fixedSize:const Size(2000, 50),
+                                       primary: Color(0xFFDB3022),
+                                       shape: RoundedRectangleBorder(
+                                         borderRadius: BorderRadius.circular(12),
+                                       )),
+                                   child: const Text("Add to cart"));
+                             })
                             ),
                           )
                         ],
