@@ -100,10 +100,43 @@ class ExploreItem extends StatelessWidget {
                                   style:const TextStyle(
                                       fontSize: 17, fontWeight: FontWeight.bold),
                                 ),
-                                Text(
-                                  "${price.toString()} \$",
-                                  style:const TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 22),
+                                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${price.toString()} \$",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold, fontSize: 22),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        print('clicked');
+                                        if (fav == true) {
+                                          cubit.removeFav(cubit2.userData!.uId!, id.toString(), name);
+                                          cubit3.hProducts[index].fav = false;
+                                          cubit3.products[index].fav = false;
+                                        } else {
+                                          int c = id - 1;
+                                          Products p = await cubit.getProduct(c.toString());
+                                          cubit.addFavourite(cubit2.userData!.uId!, id.toString(),p);
+                                          // cubit.favProducts.add(p);
+                                          cubit3.hProducts[index].fav = true;
+                                          cubit3.products[index].fav = true;
+                                        }
+                                      },
+
+                                      child: Container(
+                                        width: 50,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: Color(0xFFF2F2F2),
+                                        ),
+                                        child: Icon(
+                                          fav == true ? Icons.favorite : Icons.favorite_border,
+                                          size: 30,),
+                                      ),
+                                    ),
+                                  ],
                                 )
                               ],
                             ),
@@ -111,47 +144,47 @@ class ExploreItem extends StatelessWidget {
                         )
                       ],
                     ),
-                    Positioned(
-                      right: 0,
-                      top: 130,
-                      bottom: 0,
-                      child: GestureDetector(
-                        onTap: () async {
-                          print('clicked');
-                          if (fav == true) {
-                            cubit.removeFav(cubit2.userData!.uId!, id.toString(), name);
-                            cubit3.hProducts[index].fav = false;
-                            cubit3.products[index].fav = false;
-                            if(index<cubit3.hProducts.length){
-                              cubit3.hProducts[index].fav = false;
-                            }
-                          } else {
-                            int c = id - 1;
-                            Products p = await cubit.getProduct(c.toString());
-                            cubit.addFavourite(cubit2.userData!.uId!, id.toString(),p);
-                            // cubit.favProducts.add(p);
-                            cubit3.products[index].fav = true;
-                            if(index<cubit3.hProducts.length){
-                              cubit3.hProducts[index].fav = true;
-                            }
-                          }
-                        },
-
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color(0xFFF2F2F2),
-                          ),
-                          child: Icon(
-                            (fav ?? false) ? Icons.favorite : Icons.favorite_border,
-                          ),
-
-
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   right: 0,
+                    //   top: 130,
+                    //   bottom: 0,
+                    //   child: GestureDetector(
+                    //     onTap: () async {
+                    //       print('clicked');
+                    //       if (fav == true) {
+                    //         cubit.removeFav(cubit2.userData!.uId!, id.toString(), name);
+                    //         cubit3.hProducts[index].fav = false;
+                    //         cubit3.products[index].fav = false;
+                    //         if(index<cubit3.hProducts.length){
+                    //           cubit3.hProducts[index].fav = false;
+                    //         }
+                    //       } else {
+                    //         int c = id - 1;
+                    //         Products p = await cubit.getProduct(c.toString());
+                    //         cubit.addFavourite(cubit2.userData!.uId!, id.toString(),p);
+                    //         // cubit.favProducts.add(p);
+                    //         cubit3.products[index].fav = true;
+                    //         if(index<cubit3.hProducts.length){
+                    //           cubit3.hProducts[index].fav = true;
+                    //         }
+                    //       }
+                    //     },
+                    //
+                    //     child: Container(
+                    //       width: 40,
+                    //       height: 40,
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //         color: const Color(0xFFF2F2F2),
+                    //       ),
+                    //       child: Icon(
+                    //         (fav ?? false) ? Icons.favorite : Icons.favorite_border,
+                    //       ),
+                    //
+                    //
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
