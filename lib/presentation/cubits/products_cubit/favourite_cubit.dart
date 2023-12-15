@@ -23,7 +23,16 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     return fav;
   }
 
-  Future<void> addFavourite(String uId, String pId) async {
+  Future<void> addFavourite(String uId, String pId,Products product) async {
+    bool added = fav.add(pId);
+    if(added){
+      // Products p = await getProduct(product.toString());
+      favProducts.add(product);
+      print('added');
+    }else{
+      print('not');
+    }
+
     await productsRepositoryImpl.addFav(uId, pId);
     emit(FavAdded());
   }

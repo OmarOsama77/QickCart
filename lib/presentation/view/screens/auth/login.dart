@@ -26,9 +26,9 @@ TextEditingController password = TextEditingController();
                     alignment: Alignment.topLeft,
                     child: Text("Login",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),)),
                 SizedBox(height: 100,),
-                CustomTextField(email,"Email ID"),
+                CustomTextField(email,"Email ID",false),
                 SizedBox(height: 20,),
-                CustomTextField(password,"Password"),
+                CustomTextField(password,"Password",true),
                 Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(onPressed:(){

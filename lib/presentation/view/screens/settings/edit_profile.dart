@@ -60,13 +60,13 @@ class EditProfile extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 40,),
-                CustomTextField(fName, "Change first name"),
+                CustomTextField(fName, "Change first name",false),
                 const SizedBox(height: 40,),
-                CustomTextField(sName, "Change second name"),
+                CustomTextField(sName, "Change second name",false),
                 const SizedBox(height: 40,),
-                CustomTextField(address, "Change address"),
+                CustomTextField(address, "Change address",false),
                 const SizedBox(height: 40,),
-                CustomTextField(password, "Change password"),
+                CustomTextField(password, "Change password",true),
                 const SizedBox(height: 40,),
                 CustomButton("Save", ()async{
                   if(fName.text!=cubit.userData!.fName&&fName.text.length>3){

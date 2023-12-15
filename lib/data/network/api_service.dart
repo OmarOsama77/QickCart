@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
@@ -111,7 +112,8 @@ class ApiService {
     }
   }
  Future<Products> getProductById(String pId)async{
-   final url = Uri.https(ApiConstants.baseUrl, "${ApiConstants.shop}/products/$pId.json");
+   print('the p id $pId');
+    final url = Uri.https(ApiConstants.baseUrl, "${ApiConstants.shop}/products/$pId.json");
    final res = await http.get(url);
    if(res.statusCode==200){
     Map<String ,dynamic>pro = jsonDecode(res.body);

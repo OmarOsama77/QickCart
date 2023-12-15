@@ -117,6 +117,7 @@ class ExploreItem extends StatelessWidget {
                       bottom: 0,
                       child: GestureDetector(
                         onTap: () async {
+                          print('clicked');
                           if (fav == true) {
                             cubit.removeFav(cubit2.userData!.uId!, id.toString(), name);
                             cubit3.hProducts[index].fav = false;
@@ -125,10 +126,10 @@ class ExploreItem extends StatelessWidget {
                               cubit3.hProducts[index].fav = false;
                             }
                           } else {
-                            cubit.addFavourite(cubit2.userData!.uId!, id.toString());
                             int c = id - 1;
                             Products p = await cubit.getProduct(c.toString());
-                            cubit.favProducts.add(p);
+                            cubit.addFavourite(cubit2.userData!.uId!, id.toString(),p);
+                            // cubit.favProducts.add(p);
                             cubit3.products[index].fav = true;
                             if(index<cubit3.hProducts.length){
                               cubit3.hProducts[index].fav = true;

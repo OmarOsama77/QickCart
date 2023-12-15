@@ -1,13 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:quirkcart/data/repositry/use_repository_impl/user_repo_impl.dart';
-import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/login_use_case.dart';
-import 'package:quirkcart/domain/usecases/user_use_cases/login_use_case/signup_use_case.dart';
 import 'package:quirkcart/models/users.dart';
 import 'package:quirkcart/presentation/cubits/auth_cubit/auth_cubit.dart';
-import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_button.dart';
 import 'package:quirkcart/presentation/view/widgets/auth_widgets/custom_text_field.dart';
 
 class Signup extends StatelessWidget {
@@ -20,6 +15,8 @@ class Signup extends StatelessWidget {
   TextEditingController age = TextEditingController();
   TextEditingController weight = TextEditingController();
   TextEditingController height = TextEditingController();
+
+  Signup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +53,7 @@ class Signup extends StatelessWidget {
                             fontSize: 40, fontWeight: FontWeight.bold),
                       )),
                 ),
-                SizedBox(height: 12,),
+                 const SizedBox(height: 12,),
                 Align(alignment: Alignment.center,
                   child:
                BlocBuilder<AuthCubit,AuthState>(builder: (context,state){
@@ -68,45 +65,45 @@ class Signup extends StatelessWidget {
                      radius: 40,
                      backgroundImage:cubit.profileImage!=null?
                      FileImage(cubit.profileImage!)as ImageProvider
-                         : AssetImage("assets/images/unknown.jpg"),
+                         : const AssetImage("assets/images/unknown.jpg"),
                    ),
                  );
                }),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
-                CustomTextField(fName, "First Name"),
-                SizedBox(
+                CustomTextField(fName, "First Name",false),
+                const  SizedBox(
                   height: 20,
                 ),
-                CustomTextField(sName, "Second Name"),
-                SizedBox(
+                CustomTextField(sName, "Second Name",false),
+                const    SizedBox(
                   height: 20,
                 ),
-                CustomTextField(email, "Email ID"),
-                SizedBox(
+                CustomTextField(email, "Email ID",false),
+                const  SizedBox(
                   height: 20,
                 ),
-                CustomTextField(pass, "Password"),
-                SizedBox(
+                CustomTextField(pass, "Password",true),
+                const   SizedBox(
                   height: 20,
                 ),
-                CustomTextField(confirmPass, "Confirm Password"),
-                SizedBox(
+                CustomTextField(confirmPass, "Confirm Password",true),
+                const   SizedBox(
                   height: 20,
                 ),
-                CustomTextField(address, "Address"),
-                SizedBox(
+                CustomTextField(address, "Address",false),
+                const  SizedBox(
                   height: 20,
                 ),
                Row(
                  children: [
-                   Container(
+                   SizedBox(
                        width: 150,
                        height: 62,
-                       child: CustomTextField(age, "Age")),
-                      SizedBox(width: 22,),
+                       child: CustomTextField(age, "Age",false)),
+                   const    SizedBox(width: 22,),
                       Expanded(
                         child:
                        BlocBuilder<AuthCubit,AuthState>(builder:(context,state){
@@ -117,7 +114,7 @@ class Signup extends StatelessWidget {
                                  const  Text("Male"),
                                  IconButton(onPressed:(){
                                    cubit.chooseMale();
-                                 }, icon:cubit.male?Icon(Icons.check_box):Icon(Icons.check_box_outline_blank_outlined)),
+                                 }, icon:cubit.male? const Icon(Icons.check_box): const Icon(Icons.check_box_outline_blank_outlined)),
                                ],
                              ),
                              Column(
@@ -125,7 +122,7 @@ class Signup extends StatelessWidget {
                                 const Text("Female"),
                                  IconButton(onPressed:(){
                                    cubit.chooseFemale();
-                                 }, icon: cubit.female?Icon(Icons.check_box):Icon(Icons.check_box_outline_blank_outlined)),
+                                 }, icon: cubit.female? const Icon(Icons.check_box): const Icon(Icons.check_box_outline_blank_outlined)),
                                ],
                              )
                            ],
@@ -134,30 +131,30 @@ class Signup extends StatelessWidget {
                       )
                  ],
                ),
-                SizedBox(
+                const  SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                         width: 150,
                         height: 62,
-                        child: CustomTextField(height, "Height")),
-                    Container(
+                        child: CustomTextField(height, "Height",false)),
+                    SizedBox(
                         width: 150,
                         height: 62,
-                        child: CustomTextField(weight, "weight")),
+                        child: CustomTextField(weight, "weight",false)),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
            BlocBuilder<AuthCubit,AuthState>(builder:(context,state){
 
               if (state is SignupLoading) {
-                return CircularProgressIndicator(
-                  color: Color(0xFFDB3022),
+                return const CircularProgressIndicator(
+                  color:   Color(0xFFDB3022),
                 );
               }else{
 
@@ -186,14 +183,14 @@ class Signup extends StatelessWidget {
                    );
                    cubit.uploadUserImage(cubit.profileImage!, email.text.trim());
                  },
-                   child:
-                      Text("Register"),
                  style: ElevatedButton.styleFrom(
-                     fixedSize: Size(2000, 50),
-                     primary: Color(0xFFDB3022),
+                     fixedSize:const Size(2000, 50),
+                     primary: const Color(0xFFDB3022),
                      shape: RoundedRectangleBorder(
                        borderRadius: BorderRadius.circular(12),
-                     )));
+                     )),
+                   child:
+                   const Text("Register"));
               }
 
            })

@@ -13,7 +13,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<UserCubit>(context);
     var cubit2 = BlocProvider.of<AuthCubit>(context);
-    print('omar ${cubit.userData!.profileImageURL}');
+
     return Scaffold(
         body: SafeArea(
             child: Padding(
