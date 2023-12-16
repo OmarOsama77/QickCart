@@ -73,4 +73,5 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         }
       }
   }
+
 }

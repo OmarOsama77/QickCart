@@ -47,7 +47,7 @@ class Home extends StatelessWidget {
               BlocBuilder<ProductsCubit, ProductsState>(
                   builder: (context, state) {
                 if (state is ProductsSuccess) {
-                  return cubit.reProducts.length!=0? SizedBox(
+                  return cubit.reProducts.isNotEmpty? SizedBox(
                     height: 250,
                     child: ListView.builder(
                         shrinkWrap: true,
@@ -63,10 +63,10 @@ class Home extends StatelessWidget {
                               price: cubit.reProducts[index].price);
                         }),
                   ):
-                  SizedBox(
+                 const SizedBox(
                     height: 250,
                     child: Center(
-                      child: Text("There is no recomended products,sorry",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),),
+                      child: Text("There is no recommended products,sorry",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),),
                     ),
                   )
                   ;

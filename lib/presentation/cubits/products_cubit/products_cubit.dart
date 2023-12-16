@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meta/meta.dart';
 import 'package:quirkcart/domain/repository/product_repository.dart';
 import 'package:quirkcart/models/products.dart';
@@ -78,5 +79,12 @@ class ProductsCubit extends Cubit<ProductsState> {
       }
     }
   }
+  bool checkItem(){
+    if(products.isNotEmpty){
+      Fluttertoast.showToast(msg: "Done");
+      return true;
+    }
+    Fluttertoast.showToast(msg: "Sorry failed to get data");
+    return false;
+  }
 }
-// List<String> wordS = products[i].weight.split(RegExp(r'[-\s]'));

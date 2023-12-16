@@ -27,6 +27,7 @@ class SplashScreen extends StatelessWidget {
                 .then((value) => cubit.getHomeProducs())
                 .then((value) => cubit.getReProducts(cubit.products, cubit2.userData!))
                 .then((value) => cubit4.getUserCart(cubit2.userData!.uId!))
+                .then((value) => cubit.checkItem())
             ,
             builder: (context, snapshoot) {
               if (snapshoot.connectionState == ConnectionState.done) {

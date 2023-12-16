@@ -75,6 +75,9 @@ flutter:
     - assets/images/bags.png
     - assets/animation/splash_screen.json
     - assets/images/unknown.jpg
+    - assets/images/emptyCart.png
+    - assets/images/unknown.jpg
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
